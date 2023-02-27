@@ -36,7 +36,7 @@ var genCmd = &cobra.Command{
 		var cfg = map[string]string{}
 
 		cfg["directory"] = dir
-		cfg["filenameFormat"] = "zone.%U"
+		cfg["filenameformat"] = "zone.%U"
 
 		provider, err := providers.CreateDNSProvider("BIND", cfg, nil)
 		if err != nil {
@@ -204,5 +204,5 @@ func init() {
 	genCmd.Flags().StringSliceP("zones", "z", []string{}, "the ip ranges reverse zones shall be generated for")
 	genCmd.Flags().StringSliceP("nameservers", "n", []string{}, "the nameservers to use in the generated zone file")
 	genCmd.Flags().String("mbox", "", "the desired soa mbox")
-	genCmd.Flags().String("path", "/etc/named/zones/reverse", "the path for storing the reverse zones")
+	genCmd.Flags().String("path", "/etc/bind/zones/reverse", "the path for storing the reverse zones")
 }
