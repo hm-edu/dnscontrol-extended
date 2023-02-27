@@ -5,7 +5,6 @@ import (
 	"github.com/StackExchange/dnscontrol/v3/models"
 	"github.com/StackExchange/dnscontrol/v3/pkg/transform"
 	"github.com/StackExchange/dnscontrol/v3/providers"
-	"github.com/StackExchange/dnscontrol/v3/providers/bind"
 	_ "github.com/StackExchange/dnscontrol/v3/providers/bind"
 	"github.com/miekg/dns"
 	"github.com/spf13/cobra"
@@ -16,11 +15,6 @@ import (
 	"regexp"
 	"strings"
 )
-
-type bindCfg struct {
-	DefaultNs  []string         `json:"default_ns"`
-	DefaultSoa bind.SoaDefaults `json:"default_soa"`
-}
 
 var genCmd = &cobra.Command{
 	Use:   "gen",
@@ -35,9 +29,14 @@ var genCmd = &cobra.Command{
 		ns, _ := cmd.Flags().GetStringSlice("nameservers")
 		mbox, _ := cmd.Flags().GetString("mbox")
 
+		dir, _ := cmd.Flags().GetString("path")
+
 		soa, _ := dns.NewRR(fmt.Sprintf("@ IN SOA %s %s 0 0 0 0 0", ns[0], mbox))
 
 		var cfg = map[string]string{}
+
+		cfg["directory"] = dir
+		cfg["filenameFormat"] = "zone.%U"
 
 		provider, err := providers.CreateDNSProvider("BIND", cfg, nil)
 		if err != nil {
@@ -174,8 +173,8 @@ func getRecords(zone string) ([]dns.RR, error) {
 	if err != nil {
 		return nil, err
 	}
-	dnscon := &dns.Conn{Conn: con}
-	transfer := &dns.Transfer{Conn: dnscon}
+	dnsConnection := &dns.Conn{Conn: con}
+	transfer := &dns.Transfer{Conn: dnsConnection}
 	request := new(dns.Msg)
 	request.SetAxfr(zone + ".")
 	envelope, err := transfer.In(request, server)
@@ -205,4 +204,5 @@ func init() {
 	genCmd.Flags().StringSliceP("zones", "z", []string{}, "the ip ranges reverse zones shall be generated for")
 	genCmd.Flags().StringSliceP("nameservers", "n", []string{}, "the nameservers to use in the generated zone file")
 	genCmd.Flags().String("mbox", "", "the desired soa mbox")
+	genCmd.Flags().String("path", "/etc/named/zones/reverse", "the path for storing the reverse zones")
 }
