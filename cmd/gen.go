@@ -1,29 +1,58 @@
 package cmd
 
 import (
+	"bufio"
 	"fmt"
+	"log"
+	"os"
+
+	"github.com/StackExchange/dnscontrol/v3/pkg/printer"
+	"github.com/hm-edu/dnscontrol-extended/helper"
+
+	"net"
+	"regexp"
+	"strings"
+
 	"github.com/StackExchange/dnscontrol/v3/models"
+	"github.com/StackExchange/dnscontrol/v3/pkg/diff2"
 	"github.com/StackExchange/dnscontrol/v3/pkg/transform"
 	"github.com/StackExchange/dnscontrol/v3/providers"
 	_ "github.com/StackExchange/dnscontrol/v3/providers/bind"
 	"github.com/miekg/dns"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
-	"log"
-
-	"net"
-	"regexp"
-	"strings"
+	"go.uber.org/zap/zapcore"
 )
+
+func genLogger() *zap.Logger {
+
+	config := zap.NewProductionEncoderConfig()
+	config.EncodeTime = zapcore.ISO8601TimeEncoder
+	config.EncodeLevel = zapcore.CapitalColorLevelEncoder
+	consoleEncoder := zapcore.NewConsoleEncoder(config)
+	defaultLogLevel := zapcore.DebugLevel
+
+	core := zapcore.NewTee(
+		zapcore.NewCore(consoleEncoder, zapcore.AddSync(os.Stdout), defaultLogLevel),
+	)
+	logger := zap.New(core, zap.AddStacktrace(zapcore.FatalLevel))
+	return logger
+}
 
 var genCmd = &cobra.Command{
 	Use:   "gen",
 	Short: "Queries the forward zones and generates a new reverse zone",
 	Run: func(cmd *cobra.Command, args []string) {
-		logger, _ := zap.NewProduction()
+		logger := genLogger()
 		patternTxt, _ := regexp.Compile("hm-reverse-lookup-ip=(.*)")
 		patternName, _ := regexp.Compile("_hmip_(.*)")
-
+		writer := &helper.Writer{Log: logger}
+		printer.DefaultPrinter = &printer.ConsolePrinter{
+			Reader:  bufio.NewReader(os.Stdin),
+			Writer:  writer,
+			Verbose: false,
+		}
+		defer writer.Close()
 		domains, _ := cmd.Flags().GetStringSlice("domains")
 		zones, _ := cmd.Flags().GetStringSlice("zones")
 		ns, _ := cmd.Flags().GetStringSlice("nameservers")
@@ -37,7 +66,7 @@ var genCmd = &cobra.Command{
 
 		cfg["directory"] = dir
 		cfg["filenameformat"] = "zone.%U"
-
+		diff2.EnableDiff2 = true
 		provider, err := providers.CreateDNSProvider("BIND", cfg, nil)
 		if err != nil {
 			logger.Sugar().Fatalf("error creating bind provider %v", err)
@@ -115,7 +144,7 @@ var genCmd = &cobra.Command{
 							name := patternName.FindStringSubmatch(txt.Hdr.Name)[1]
 							if record, found := entries[revName]; found {
 								if record != name {
-									logger.Sugar().Infof("replacing existing record for %s: %s %s", ip, record, name)
+									logger.Sugar().Infof("replacing existing record for %s using txt record: %s %s", ip, record, name)
 								}
 							} else {
 								logger.Sugar().Warnf("adding reverse entry without forward entry for %s -> %s", ip, name)
@@ -127,7 +156,7 @@ var genCmd = &cobra.Command{
 			}
 
 			for key, value := range entries {
-				rr, err := dns.NewRR(fmt.Sprintf("%s IN PTR %s", key, value))
+				rr, err := dns.NewRR(fmt.Sprintf("%s IN PTR %s", key, strings.ToLower(value)))
 				if err != nil {
 					log.Fatalf("error adding ptr %v", err)
 				}
@@ -142,7 +171,6 @@ var genCmd = &cobra.Command{
 			for _, server := range ns {
 				nameservers = append(nameservers, &models.Nameserver{Name: server})
 			}
-			records = append(records)
 			config := models.DomainConfig{
 				Name:        name,
 				UniqueName:  name,
@@ -153,11 +181,19 @@ var genCmd = &cobra.Command{
 			if err != nil {
 				logger.Sugar().Fatalf("error computing domain corrections %v", err)
 			}
-			for _, correction := range corrections {
-				logger.Sugar().Infof("%s", correction.Msg)
-				err := correction.F()
-				if err != nil {
-					logger.Sugar().Fatalf("error applying corrections %v", err)
+			if len(corrections) == 0 {
+				logger.Sugar().Infof("no changes required for zone %s", name)
+			} else {
+				for _, correction := range corrections {
+					msgs := strings.Split(correction.Msg, "\n")
+					logger.Sugar().Infof("Applying changes to zone %s", zone)
+					for _, msg := range msgs {
+						logger.Sugar().Infof("%s", msg)
+					}
+					err := correction.F()
+					if err != nil {
+						logger.Sugar().Fatalf("error applying corrections %v", err)
+					}
 				}
 			}
 		}
@@ -205,4 +241,10 @@ func init() {
 	genCmd.Flags().StringSliceP("nameservers", "n", []string{}, "the nameservers to use in the generated zone file")
 	genCmd.Flags().String("mbox", "", "the desired soa mbox")
 	genCmd.Flags().String("path", "/etc/bind/zones/reverse", "the path for storing the reverse zones")
+
+	genCmd.MarkFlagRequired("domains")
+	genCmd.MarkFlagRequired("zones")
+	genCmd.MarkFlagRequired("nameservers")
+	genCmd.MarkFlagRequired("mbox")
+
 }
