@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/StackExchange/dnscontrol/v3/pkg/printer"
+	"github.com/StackExchange/dnscontrol/v3/pkg/zonerecs"
 	"github.com/hm-edu/dnscontrol-extended/helper"
 
 	"net"
@@ -177,7 +178,7 @@ var genCmd = &cobra.Command{
 				Records:     ptrRecords,
 				Nameservers: nameservers,
 			}
-			corrections, err := provider.GetDomainCorrections(&config)
+			corrections, err := zonerecs.CorrectZoneRecords(provider, &config)
 			if err != nil {
 				logger.Sugar().Fatalf("error computing domain corrections %v", err)
 			}
