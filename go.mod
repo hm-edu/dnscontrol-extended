@@ -3,9 +3,9 @@ module github.com/hm-edu/dnscontrol-extended
 go 1.20
 
 require (
-	github.com/StackExchange/dnscontrol/v3 v3.31.0
+	github.com/StackExchange/dnscontrol/v3 v3.31.1
 	github.com/spf13/cobra v1.7.0
-	github.com/xanzy/go-gitlab v0.82.0
+	github.com/xanzy/go-gitlab v0.83.0
 	go.uber.org/zap v1.24.0
 )
 
@@ -16,7 +16,7 @@ require (
 	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
-	github.com/hashicorp/go-hclog v1.2.0 // indirect
+	github.com/hashicorp/go-hclog v1.5.0 // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.2 // indirect
 	github.com/jinzhu/copier v0.3.5 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
