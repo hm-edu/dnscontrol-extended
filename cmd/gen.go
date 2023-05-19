@@ -174,10 +174,11 @@ var genCmd = &cobra.Command{
 			}
 			config := models.DomainConfig{
 				Name:        name,
-				UniqueName:  name,
 				Records:     ptrRecords,
 				Nameservers: nameservers,
+				Metadata:    make(map[string]string),
 			}
+			config.Metadata[models.DomainUniqueName] = name
 			corrections, err := zonerecs.CorrectZoneRecords(provider, &config)
 			if err != nil {
 				logger.Sugar().Fatalf("error computing domain corrections %v", err)
