@@ -13,7 +13,7 @@ jobs:
       # github.repository as <account>/<repo>
       IMAGE_NAME: ${{ github.repository }}
     permissions:
-      contents: read
+      contents: write
       packages: write
     steps:
 
