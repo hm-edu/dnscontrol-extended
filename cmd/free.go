@@ -8,7 +8,7 @@ import (
 	"path"
 	"strings"
 
-	"github.com/StackExchange/dnscontrol/v3/pkg/transform"
+	"github.com/StackExchange/dnscontrol/v4/pkg/transform"
 	"github.com/hm-edu/dnscontrol-extended/helper"
 	"github.com/miekg/dns"
 	"github.com/spf13/cobra"

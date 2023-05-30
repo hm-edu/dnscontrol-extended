@@ -6,19 +6,19 @@ import (
 	"log"
 	"os"
 
-	"github.com/StackExchange/dnscontrol/v3/pkg/printer"
-	"github.com/StackExchange/dnscontrol/v3/pkg/zonerecs"
+	"github.com/StackExchange/dnscontrol/v4/pkg/printer"
+	"github.com/StackExchange/dnscontrol/v4/pkg/zonerecs"
 	"github.com/hm-edu/dnscontrol-extended/helper"
 
 	"net"
 	"regexp"
 	"strings"
 
-	"github.com/StackExchange/dnscontrol/v3/models"
-	"github.com/StackExchange/dnscontrol/v3/pkg/diff2"
-	"github.com/StackExchange/dnscontrol/v3/pkg/transform"
-	"github.com/StackExchange/dnscontrol/v3/providers"
-	_ "github.com/StackExchange/dnscontrol/v3/providers/bind"
+	"github.com/StackExchange/dnscontrol/v4/models"
+	"github.com/StackExchange/dnscontrol/v4/pkg/diff2"
+	"github.com/StackExchange/dnscontrol/v4/pkg/transform"
+	"github.com/StackExchange/dnscontrol/v4/providers"
+	_ "github.com/StackExchange/dnscontrol/v4/providers/bind"
 	"github.com/miekg/dns"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
@@ -179,7 +179,7 @@ var genCmd = &cobra.Command{
 				Metadata:    make(map[string]string),
 			}
 			config.Metadata[models.DomainUniqueName] = name
-			corrections, err := zonerecs.CorrectZoneRecords(provider, &config)
+			_, corrections, err := zonerecs.CorrectZoneRecords(provider, &config)
 			if err != nil {
 				logger.Sugar().Fatalf("error computing domain corrections %v", err)
 			}
