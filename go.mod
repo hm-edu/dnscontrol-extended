@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/StackExchange/dnscontrol/v4 v4.1.2
 	github.com/spf13/cobra v1.7.0
-	github.com/xanzy/go-gitlab v0.84.0
+	github.com/xanzy/go-gitlab v0.85.0
 	go.uber.org/zap v1.24.0
 )
 
