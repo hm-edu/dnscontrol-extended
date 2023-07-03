@@ -5,7 +5,28 @@ import (
 	"fmt"
 	"math"
 	"net"
+	"net/netip"
 )
+
+type SubnetResponse struct {
+	Net     string
+	Section string
+	Empty   bool
+}
+
+type ByNet []SubnetResponse
+
+func (a ByNet) Len() int { return len(a) }
+func (a ByNet) Less(i, j int) bool {
+	x, _, _ := net.ParseCIDR(a[i].Net)
+	y, _, _ := net.ParseCIDR(a[j].Net)
+	n := netip.MustParseAddr(x.String())
+	m := netip.MustParseAddr(y.String())
+	return n.Less(m)
+}
+func (a ByNet) Swap(i, j int) {
+	a[i], a[j] = a[j], a[i]
+}
 
 func Hosts(ipnet *net.IPNet, pseudo bool) ([]string, error) {
 	ip := ipnet.IP
