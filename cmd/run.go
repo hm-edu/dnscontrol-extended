@@ -117,9 +117,9 @@ func handleSubnet(net *net.IPNet, logger *zap.Logger, recordMap map[string]strin
 		n = fmt.Sprintf("%s.", n)
 		if rr, ok := recordMap[n]; ok {
 			foundHosts++
-			section += fmt.Sprintf("- :no_entry:  %s: %s\n", host, rr)
+			section += fmt.Sprintf("- [x]  %s: %s\n", host, rr)
 		} else {
-			section += fmt.Sprintf("- :white_check_mark:  %s: \n", host)
+			section += fmt.Sprintf("- [ ]  %s: \n", host)
 		}
 	}
 	logger.Sugar().Infof("Calculated IP usage for %s", net.String())
