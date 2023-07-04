@@ -6,9 +6,11 @@ import (
 	"net"
 	"sort"
 	"strconv"
+	"time"
 
 	"github.com/xanzy/go-gitlab"
 	"go.uber.org/zap"
+	"golang.org/x/time/rate"
 )
 
 func GenerateGitlabIssue(nets int, zones []SubnetResponse, pat, api, projectID, zone string, logger *zap.Logger, empty bool, inner string) {
@@ -54,7 +56,7 @@ func GenerateGitlabIssue(nets int, zones []SubnetResponse, pat, api, projectID, 
 		}
 	}
 
-	client, err := gitlab.NewClient(pat, gitlab.WithBaseURL(api))
+	client, err := gitlab.NewClient(pat, gitlab.WithBaseURL(api), gitlab.WithCustomLimiter(rate.NewLimiter(rate.Every(time.Minute/300), 1)))
 	if err != nil {
 		panic(err)
 	}
@@ -138,10 +140,12 @@ func GenerateGitlabIssue(nets int, zones []SubnetResponse, pat, api, projectID, 
 	if err != nil {
 		logger.Sugar().Errorf("Updating issue %s failed.", issue.Title)
 	}
-	logger.Sugar().Infof("Purging old comments for zone %s", zone)
 	notes, _, err := client.Notes.ListIssueNotes(project.ID, issue.IID, &gitlab.ListIssueNotesOptions{})
 	if err != nil {
 		panic(err)
+	}
+	if len(notes) != 0 {
+		logger.Sugar().Infof("Purging old comments for zone %s", zone)
 	}
 	for _, note := range notes {
 		if !note.System {
