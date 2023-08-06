@@ -6,7 +6,7 @@ require (
 	github.com/StackExchange/dnscontrol/v4 v4.1.7
 	github.com/spf13/cobra v1.7.0
 	github.com/xanzy/go-gitlab v0.89.0
-	go.uber.org/zap v1.24.0
+	go.uber.org/zap v1.25.0
 	golang.org/x/time v0.3.0
 )
 
@@ -24,7 +24,6 @@ require (
 	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/qdm12/reprint v0.0.0-20200326205758-722754a53494 // indirect
-	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/exp v0.0.0-20230522175609-2e198f4a06a1 // indirect
 	golang.org/x/mod v0.10.0 // indirect
