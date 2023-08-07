@@ -3,7 +3,7 @@ module github.com/hm-edu/dnscontrol-extended
 go 1.20
 
 require (
-	github.com/StackExchange/dnscontrol/v4 v4.1.7
+	github.com/StackExchange/dnscontrol/v4 v4.1.13
 	github.com/spf13/cobra v1.7.0
 	github.com/xanzy/go-gitlab v0.90.0
 	go.uber.org/zap v1.25.0
