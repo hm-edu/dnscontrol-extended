@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net"
@@ -33,6 +34,7 @@ func init() {
 	runCmd.Flags().StringP("dir", "d", "zones", "the location of reverse zones")
 	runCmd.Flags().StringSliceP("formats", "f", []string{"zone.%s", "%s.zone", "%s.db", "db.%s"}, "the filename patterns to search the reverse zone")
 	runCmd.Flags().Bool("pseudo", true, "Include the network and broadcast addresses of all subnets. Useful if firewall rules handle the complete parent subnet.")
+	runCmd.Flags().String("labels", "", "The tags to be added to the subnets")
 	runCmd.MarkFlagRequired("zone")
 	runCmd.MarkFlagRequired("pat")
 	runCmd.MarkFlagRequired("api")
@@ -55,6 +57,20 @@ var runCmd = &cobra.Command{
 		inner, _ := cmd.Flags().GetString("inner")
 		fileNameFormats, _ := cmd.Flags().GetStringSlice("formats")
 		dir, _ := cmd.Flags().GetString("dir")
+		tagsPath, _ := cmd.Flags().GetString("labels")
+		var labels []helper.Label
+
+		if tagsPath != "" {
+			data, err := os.ReadFile(tagsPath)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			err = json.Unmarshal(data, &labels)
+			if err != nil {
+				log.Fatal(err)
+			}
+		}
 
 		var nets []*net.IPNet
 
@@ -127,11 +143,20 @@ var runCmd = &cobra.Command{
 		if err != nil {
 			panic(err)
 		}
+		for _, item := range labels {
+			// Create tags if not existing
+			_, _, err := client.Labels.CreateLabel(projectID, &gitlab.CreateLabelOptions{
+				Name:  gitlab.String(item.Label),
+				Color: gitlab.String(fmt.Sprintf("#%06x", item.Color))})
+			if err != nil {
+				logger.Sugar().Warn(err)
+			}
+		}
 		items, _, err := client.Issues.ListProjectIssues(project.ID, &gitlab.ListProjectIssuesOptions{})
 		if err != nil {
 			panic(err)
 		}
-		helper.GenerateGitlabIssue(subnetItems, pat, api, projectID, zone, logger, empty, &inner, project, items, client)
+		helper.GenerateGitlabIssue(subnetItems, pat, api, projectID, zone, logger, empty, &inner, project, items, client, labels)
 	},
 }
 

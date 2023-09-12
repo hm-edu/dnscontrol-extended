@@ -6,12 +6,13 @@ import (
 	"net"
 	"sort"
 	"strconv"
+	"strings"
 
 	"github.com/xanzy/go-gitlab"
 	"go.uber.org/zap"
 )
 
-func GenerateGitlabIssue(zones []SubnetResponse, pat, api, projectID, zone string, logger *zap.Logger, includeEmpty bool, inner *string, project *gitlab.Project, items []*gitlab.Issue, client *gitlab.Client) {
+func GenerateGitlabIssue(zones []SubnetResponse, pat, api, projectID, zone string, logger *zap.Logger, includeEmpty bool, inner *string, project *gitlab.Project, items []*gitlab.Issue, client *gitlab.Client, labelMapping []Label) {
 
 	if inner != nil {
 		innerMask, err := strconv.Atoi(*inner)
@@ -30,7 +31,7 @@ func GenerateGitlabIssue(zones []SubnetResponse, pat, api, projectID, zone strin
 					innerZones = append(innerZones, zone)
 				}
 			}
-			GenerateGitlabIssue(innerZones, pat, api, projectID, innerNet.String(), logger, includeEmpty, nil, project, items, client)
+			GenerateGitlabIssue(innerZones, pat, api, projectID, innerNet.String(), logger, includeEmpty, nil, project, items, client, labelMapping)
 		}
 		return
 	}
@@ -72,13 +73,30 @@ func GenerateGitlabIssue(zones []SubnetResponse, pat, api, projectID, zone strin
 			return
 		}
 		logger.Sugar().Infof("Found no existing issue for zone %s. Creating new.", zone)
+		var matchingLabels []string
+		for _, labelMapping := range labelMapping {
+			if labelMapping.Subnet == zone {
+				matchingLabels = append(matchingLabels, labelMapping.Label)
+				break
+			}
+			cont, err := contains(zone, labelMapping.Subnet)
+			if err != nil {
+				panic(err)
+			}
+			if cont {
+				matchingLabels = append(matchingLabels, labelMapping.Label)
+			}
+		}
+
 		issue, _, err = client.Issues.CreateIssue(project.ID, &gitlab.CreateIssueOptions{
 			Title:       gitlab.String("IP usage in " + zone),
 			Description: gitlab.String(""),
+			Labels:      &gitlab.Labels{strings.Join(matchingLabels, ",")},
 		})
 		if err != nil {
 			panic(err)
 		}
+
 	} else {
 		if zones[0].Empty && !includeEmpty {
 			for _, issue := range issues {

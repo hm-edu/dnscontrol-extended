@@ -8,6 +8,12 @@ import (
 	"net/netip"
 )
 
+type Label struct {
+	Subnet string `json:"subnet"`
+	Label  string `json:"label"`
+	Color  string `json:"color"`
+}
+
 type SubnetResponse struct {
 	Net     string
 	Section string
@@ -27,7 +33,22 @@ func (a ByNet) Less(i, j int) bool {
 func (a ByNet) Swap(i, j int) {
 	a[i], a[j] = a[j], a[i]
 }
+func contains(subnet, route string) (bool, error) {
+	sIP, sNW, err := net.ParseCIDR(subnet)
+	if err != nil {
+		return false, err
+	}
 
+	_, rNW, err := net.ParseCIDR(route)
+	if err != nil {
+		return false, err
+	}
+
+	sNWMaskSize, _ := sNW.Mask.Size()
+	rNWMaskSize, _ := rNW.Mask.Size()
+
+	return rNW.Contains(sIP) && sNWMaskSize >= rNWMaskSize, nil
+}
 func Hosts(ipnet *net.IPNet, pseudo bool) ([]string, error) {
 	ip := ipnet.IP
 	var ips []string
