@@ -8,14 +8,36 @@ import (
 	"path"
 	"strconv"
 	"strings"
+	"time"
 
 	"go.uber.org/zap"
+	"golang.org/x/time/rate"
 
 	"github.com/StackExchange/dnscontrol/v4/pkg/transform"
 	"github.com/hm-edu/dnscontrol-extended/helper"
 	"github.com/miekg/dns"
 	"github.com/spf13/cobra"
+	"github.com/xanzy/go-gitlab"
 )
+
+func init() {
+	rootCmd.AddCommand(runCmd)
+
+	runCmd.Flags().StringP("zone", "z", "", "The ip-range to parse")
+	runCmd.Flags().StringP("subnets", "s", "", "The (optional) subnet size (the net and broadcast address of the subnets can be enabled using the pseudo flag)")
+	runCmd.Flags().StringP("pat", "p", "", "The personal access token for the gitlab api")
+	runCmd.Flags().StringP("api", "a", "", "The gitlab api url")
+	runCmd.Flags().StringP("project", "i", "", "The gitlab project id")
+	runCmd.Flags().BoolP("empty", "e", false, "Include empty subnets")
+	runCmd.Flags().String("inner", "", "The inner subnet size")
+	runCmd.Flags().StringP("dir", "d", "zones", "the location of reverse zones")
+	runCmd.Flags().StringSliceP("formats", "f", []string{"zone.%s", "%s.zone", "%s.db", "db.%s"}, "the filename patterns to search the reverse zone")
+	runCmd.Flags().Bool("pseudo", true, "Include the network and broadcast addresses of all subnets. Useful if firewall rules handle the complete parent subnet.")
+	runCmd.MarkFlagRequired("zone")
+	runCmd.MarkFlagRequired("pat")
+	runCmd.MarkFlagRequired("api")
+	runCmd.MarkFlagRequired("project")
+}
 
 // runCmd represents the run command
 var runCmd = &cobra.Command{
@@ -36,11 +58,13 @@ var runCmd = &cobra.Command{
 
 		var nets []*net.IPNet
 
+		// Check if we shal generate subnetted issues
 		if subnets != "" {
 			s, err := strconv.Atoi(subnets)
 			if err != nil {
 				log.Fatal(err)
 			}
+			// Calculate required subnets
 			nets, err = helper.Subnets(zone, s)
 			if err != nil {
 				log.Fatal(err)
@@ -85,23 +109,33 @@ var runCmd = &cobra.Command{
 		}
 
 		c := make(chan helper.SubnetResponse)
+		defer close(c)
+
 		for _, net := range nets {
-			go handleSubnet(net, logger, recordMap, pseudo, c)
+			go computeSubnetContent(net, logger, recordMap, pseudo, c)
 		}
 
-		var items []helper.SubnetResponse
-
+		var subnetItems []helper.SubnetResponse
 		for range nets {
-			items = append(items, <-c)
+			subnetItems = append(subnetItems, <-c)
 		}
-
-		close(c)
-
-		helper.GenerateGitlabIssue(len(nets), items, pat, api, projectID, zone, logger, empty, inner)
+		client, err := gitlab.NewClient(pat, gitlab.WithBaseURL(api), gitlab.WithCustomLimiter(rate.NewLimiter(rate.Every(time.Minute/300), 1)))
+		if err != nil {
+			panic(err)
+		}
+		project, _, err := client.Projects.GetProject(projectID, nil)
+		if err != nil {
+			panic(err)
+		}
+		items, _, err := client.Issues.ListProjectIssues(project.ID, &gitlab.ListProjectIssuesOptions{})
+		if err != nil {
+			panic(err)
+		}
+		helper.GenerateGitlabIssue(subnetItems, pat, api, projectID, zone, logger, empty, &inner, project, items, client)
 	},
 }
 
-func handleSubnet(net *net.IPNet, logger *zap.Logger, recordMap map[string]string, pseudo bool, c chan helper.SubnetResponse) {
+func computeSubnetContent(net *net.IPNet, logger *zap.Logger, recordMap map[string]string, pseudo bool, c chan helper.SubnetResponse) {
 	hosts, err := helper.Hosts(net, pseudo)
 	var section string
 	logger.Sugar().Infof("Calculate IP usage for %s", net.String())
@@ -129,23 +163,4 @@ func handleSubnet(net *net.IPNet, logger *zap.Logger, recordMap map[string]strin
 	} else {
 		c <- helper.SubnetResponse{Net: net.String(), Section: section, Empty: false}
 	}
-}
-
-func init() {
-	rootCmd.AddCommand(runCmd)
-
-	runCmd.Flags().StringP("zone", "z", "", "The ip-range to parse")
-	runCmd.Flags().StringP("subnets", "s", "", "The (optional) subnet size (the net and broadcast address of the subnets can be enabled using the pseudo flag)")
-	runCmd.Flags().StringP("pat", "p", "", "The personal access token for the gitlab api")
-	runCmd.Flags().StringP("api", "a", "", "The gitlab api url")
-	runCmd.Flags().StringP("project", "i", "", "The gitlab project id")
-	runCmd.Flags().BoolP("empty", "e", false, "Include empty subnets")
-	runCmd.Flags().String("inner", "", "The inner subnet size")
-	runCmd.Flags().StringP("dir", "d", "zones", "the location of reverse zones")
-	runCmd.Flags().StringSliceP("formats", "f", []string{"zone.%s", "%s.zone", "%s.db", "db.%s"}, "the filename patterns to search the reverse zone")
-	runCmd.Flags().Bool("pseudo", true, "Include the network and broadcast addresses of all subnets. Useful if firewall rules handle the complete parent subnet.")
-	runCmd.MarkFlagRequired("zone")
-	runCmd.MarkFlagRequired("pat")
-	runCmd.MarkFlagRequired("api")
-	runCmd.MarkFlagRequired("project")
 }

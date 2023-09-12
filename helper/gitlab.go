@@ -6,21 +6,19 @@ import (
 	"net"
 	"sort"
 	"strconv"
-	"time"
 
 	"github.com/xanzy/go-gitlab"
 	"go.uber.org/zap"
-	"golang.org/x/time/rate"
 )
 
-func GenerateGitlabIssue(nets int, zones []SubnetResponse, pat, api, projectID, zone string, logger *zap.Logger, empty bool, inner string) {
+func GenerateGitlabIssue(zones []SubnetResponse, pat, api, projectID, zone string, logger *zap.Logger, includeEmpty bool, inner *string, project *gitlab.Project, items []*gitlab.Issue, client *gitlab.Client) {
 
-	if inner != "" {
-		s, err := strconv.Atoi(inner)
+	if inner != nil {
+		innerMask, err := strconv.Atoi(*inner)
 		if err != nil {
 			log.Fatal(err)
 		}
-		innerNets, err := Subnets(zone, s)
+		innerNets, err := Subnets(zone, innerMask)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -32,7 +30,7 @@ func GenerateGitlabIssue(nets int, zones []SubnetResponse, pat, api, projectID, 
 					innerZones = append(innerZones, zone)
 				}
 			}
-			GenerateGitlabIssue(nets/len(innerNets), innerZones, pat, api, projectID, innerNet.String(), logger, empty, "")
+			GenerateGitlabIssue(innerZones, pat, api, projectID, innerNet.String(), logger, includeEmpty, nil, project, items, client)
 		}
 		return
 	}
@@ -40,7 +38,7 @@ func GenerateGitlabIssue(nets int, zones []SubnetResponse, pat, api, projectID, 
 	sort.Sort(ByNet(zones))
 	var description string
 	var i int
-	if nets == 1 {
+	if len(zones) == 1 {
 		description = zones[0].Section
 		if len([]byte(description)) > (1024 * 512) {
 			logger.Sugar().Fatalf("Issue description will be to large. Consider splitting information into subnets.")
@@ -51,32 +49,25 @@ func GenerateGitlabIssue(nets int, zones []SubnetResponse, pat, api, projectID, 
 				description += "\n\nPlease check comments."
 				break
 			}
-			description += generateDescription(item, empty)
+			description += generateDescription(item, includeEmpty)
 			i++
 		}
 	}
-
-	client, err := gitlab.NewClient(pat, gitlab.WithBaseURL(api), gitlab.WithCustomLimiter(rate.NewLimiter(rate.Every(time.Minute/300), 1)))
-	if err != nil {
-		panic(err)
-	}
-	project, _, err := client.Projects.GetProject(projectID, nil)
-	if err != nil {
-		panic(err)
-	}
 	var issues []*gitlab.Issue
-	for _, format := range []string{"IP usage in %s", "Free IPs in %s"} {
-		items, _, err := client.Issues.ListProjectIssues(project.ID, &gitlab.ListProjectIssuesOptions{
-			Search: gitlab.String(fmt.Sprintf(format, zone)),
-		})
-		if err != nil {
-			panic(err)
-		}
-		issues = append(issues, items...)
-	}
 	var issue *gitlab.Issue
+	var err error
+	for _, item := range items {
+		if item.Title == "IP usage in "+zone {
+			issues = append(issues, item)
+			continue
+		}
+		if item.Title == "Free IPs in "+zone {
+			issues = append(issues, item)
+			continue
+		}
+	}
 	if len(issues) == 0 {
-		if zones[0].Empty {
+		if zones[0].Empty && !includeEmpty {
 			logger.Sugar().Infof("Zone %s is empty. Skipping", zone)
 			return
 		}
@@ -89,8 +80,7 @@ func GenerateGitlabIssue(nets int, zones []SubnetResponse, pat, api, projectID, 
 			panic(err)
 		}
 	} else {
-		issue = issues[0]
-		if zones[0].Empty {
+		if zones[0].Empty && !includeEmpty {
 			for _, issue := range issues {
 				logger.Sugar().Infof("Zone %s is empty. Deleting existing issue", zone)
 				_, err := client.Issues.DeleteIssue(project.ID, issue.IID)
@@ -156,8 +146,8 @@ func GenerateGitlabIssue(nets int, zones []SubnetResponse, pat, api, projectID, 
 			}
 		}
 	}
-	if nets != 1 && nets != i {
-		logger.Sugar().Infof("Description handles %d subnets. %d remaining -> Placing into comments", i, nets-i)
+	if len(zones) != 1 && len(zones) != i {
+		logger.Sugar().Infof("Description handles %d subnets. %d remaining -> Placing into comments", i, len(zones)-i)
 		for {
 			description = ""
 			inserted := false
@@ -171,10 +161,10 @@ func GenerateGitlabIssue(nets int, zones []SubnetResponse, pat, api, projectID, 
 					inserted = true
 					break
 				}
-				description += generateDescription(item, empty)
+				description += generateDescription(item, includeEmpty)
 				i++
 			}
-			if i == nets {
+			if i == len(zones) {
 				if !inserted {
 					_, _, err := client.Notes.CreateIssueNote(project.ID, issue.IID, &gitlab.CreateIssueNoteOptions{Body: gitlab.String(description)})
 					if err != nil {
