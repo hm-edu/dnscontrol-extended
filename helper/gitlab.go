@@ -136,9 +136,24 @@ func GenerateGitlabIssue(zones []SubnetResponse, pat, api, projectID, zone strin
 	}
 
 	logger.Sugar().Infof("Updating issue description for zone %s.", zone)
+	var matchingLabels []string
+	for _, labelMapping := range labelMapping {
+		if labelMapping.Subnet == zone {
+			matchingLabels = append(matchingLabels, labelMapping.Label)
+			break
+		}
+		cont, err := contains(zone, labelMapping.Subnet)
+		if err != nil {
+			panic(err)
+		}
+		if cont {
+			matchingLabels = append(matchingLabels, labelMapping.Label)
+		}
+	}
 	update := &gitlab.UpdateIssueOptions{
 		Title:       gitlab.String("IP usage in " + zone),
 		Description: gitlab.String(description),
+		Labels:      &gitlab.Labels{strings.Join(matchingLabels, ",")},
 	}
 	if issue.State == "closed" {
 		logger.Sugar().Warnf("Reopening issue for %s", zone)
