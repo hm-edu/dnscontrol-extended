@@ -152,9 +152,20 @@ var runCmd = &cobra.Command{
 				logger.Sugar().Warn(err)
 			}
 		}
-		items, _, err := client.Issues.ListProjectIssues(project.ID, &gitlab.ListProjectIssuesOptions{})
-		if err != nil {
-			panic(err)
+
+		var items []*gitlab.Issue
+		page := 1
+		for {
+			ListOptions := gitlab.ListOptions{PerPage: 100, Page: page}
+			x, resp, err := client.Issues.ListProjectIssues(project.ID, &gitlab.ListProjectIssuesOptions{ListOptions: ListOptions})
+			if err != nil {
+				panic(err)
+			}
+			items = append(items, x...)
+			if len(items) == resp.TotalItems {
+				break
+			}
+			page++
 		}
 		helper.GenerateGitlabIssue(subnetItems, pat, api, projectID, zone, logger, empty, &inner, project, items, client, labels)
 	},
