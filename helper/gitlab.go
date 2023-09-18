@@ -14,7 +14,7 @@ import (
 
 func GenerateGitlabIssue(zones []SubnetResponse, pat, api, projectID, zone string, logger *zap.Logger, includeEmpty bool, inner *string, project *gitlab.Project, items []*gitlab.Issue, client *gitlab.Client, labelMapping []Label) {
 
-	if inner != nil {
+	if inner != nil && *inner != "" {
 		innerMask, err := strconv.Atoi(*inner)
 		if err != nil {
 			log.Fatal(err)
