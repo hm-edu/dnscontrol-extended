@@ -15,7 +15,6 @@ import (
 	"strings"
 
 	"github.com/StackExchange/dnscontrol/v4/models"
-	"github.com/StackExchange/dnscontrol/v4/pkg/diff2"
 	"github.com/StackExchange/dnscontrol/v4/pkg/transform"
 	"github.com/StackExchange/dnscontrol/v4/providers"
 	_ "github.com/StackExchange/dnscontrol/v4/providers/bind"
@@ -67,7 +66,6 @@ var genCmd = &cobra.Command{
 
 		cfg["directory"] = dir
 		cfg["filenameformat"] = "zone.%U"
-		diff2.EnableDiff2 = true
 		provider, err := providers.CreateDNSProvider("BIND", cfg, nil)
 		if err != nil {
 			logger.Sugar().Fatalf("error creating bind provider %v", err)
