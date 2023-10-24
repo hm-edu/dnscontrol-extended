@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - "*"
+    pull_request:
 
 name: CI build
 jobs:
