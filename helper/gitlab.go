@@ -89,9 +89,9 @@ func GenerateGitlabIssue(zones []SubnetResponse, pat, api, projectID, zone strin
 		}
 
 		issue, _, err = client.Issues.CreateIssue(project.ID, &gitlab.CreateIssueOptions{
-			Title:       gitlab.String("IP usage in " + zone),
-			Description: gitlab.String(""),
-			Labels:      &gitlab.Labels{strings.Join(matchingLabels, ",")},
+			Title:       gitlab.Ptr("IP usage in " + zone),
+			Description: gitlab.Ptr(""),
+			Labels:      &gitlab.LabelOptions{strings.Join(matchingLabels, ",")},
 		})
 		if err != nil {
 			panic(err)
@@ -104,7 +104,7 @@ func GenerateGitlabIssue(zones []SubnetResponse, pat, api, projectID, zone strin
 				_, err := client.Issues.DeleteIssue(project.ID, issue.IID)
 				if err != nil {
 					logger.Sugar().Warnf("Deleting issue %s failed.", issue.Title)
-					_, _, err := client.Issues.UpdateIssue(project.ID, issue.IID, &gitlab.UpdateIssueOptions{StateEvent: gitlab.String("close")})
+					_, _, err := client.Issues.UpdateIssue(project.ID, issue.IID, &gitlab.UpdateIssueOptions{StateEvent: gitlab.Ptr("close")})
 					if err != nil {
 						logger.Sugar().Errorf("Closing issue %s failed.", issue.Title)
 					}
@@ -151,13 +151,13 @@ func GenerateGitlabIssue(zones []SubnetResponse, pat, api, projectID, zone strin
 		}
 	}
 	update := &gitlab.UpdateIssueOptions{
-		Title:       gitlab.String("IP usage in " + zone),
-		Description: gitlab.String(description),
-		Labels:      &gitlab.Labels{strings.Join(matchingLabels, ",")},
+		Title:       gitlab.Ptr("IP usage in " + zone),
+		Description: gitlab.Ptr(description),
+		Labels:      &gitlab.LabelOptions{strings.Join(matchingLabels, ",")},
 	}
 	if issue.State == "closed" {
 		logger.Sugar().Warnf("Reopening issue for %s", zone)
-		update.StateEvent = gitlab.String("reopen")
+		update.StateEvent = gitlab.Ptr("reopen")
 	}
 	_, _, err = client.Issues.UpdateIssue(project.ID, issue.IID, update)
 	if err != nil {
@@ -187,7 +187,7 @@ func GenerateGitlabIssue(zones []SubnetResponse, pat, api, projectID, zone strin
 			for _, item := range zones[i:] {
 				if len([]byte(description)) > (1024 * 512) {
 					description += "\n\nPlease check comments"
-					_, _, err := client.Notes.CreateIssueNote(project.ID, issue.IID, &gitlab.CreateIssueNoteOptions{Body: gitlab.String(description)})
+					_, _, err := client.Notes.CreateIssueNote(project.ID, issue.IID, &gitlab.CreateIssueNoteOptions{Body: gitlab.Ptr(description)})
 					if err != nil {
 						logger.Sugar().Fatal(zap.Error(err))
 					}
@@ -199,7 +199,7 @@ func GenerateGitlabIssue(zones []SubnetResponse, pat, api, projectID, zone strin
 			}
 			if i == len(zones) {
 				if !inserted {
-					_, _, err := client.Notes.CreateIssueNote(project.ID, issue.IID, &gitlab.CreateIssueNoteOptions{Body: gitlab.String(description)})
+					_, _, err := client.Notes.CreateIssueNote(project.ID, issue.IID, &gitlab.CreateIssueNoteOptions{Body: gitlab.Ptr(description)})
 					if err != nil {
 						logger.Sugar().Fatal(zap.Error(err))
 					}
