@@ -1,6 +1,9 @@
 module github.com/hm-edu/dnscontrol-extended
 
-go 1.21
+go 1.22.1
+
+toolchain go1.22.2
+
 require (
 	github.com/StackExchange/dnscontrol/v4 v4.9.0
 	github.com/spf13/cobra v1.8.0
