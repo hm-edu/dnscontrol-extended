@@ -3,7 +3,7 @@ module github.com/hm-edu/dnscontrol-extended
 go 1.22.2
 
 require (
-	github.com/StackExchange/dnscontrol/v4 v4.9.0
+	github.com/StackExchange/dnscontrol/v4 v4.10.0
 	github.com/spf13/cobra v1.8.0
 	github.com/xanzy/go-gitlab v0.104.0
 	go.uber.org/zap v1.27.0
@@ -23,7 +23,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/qdm12/reprint v0.0.0-20200326205758-722754a53494 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	golang.org/x/exp v0.0.0-20240404231335-c0f41cb1a7a0 // indirect
+	golang.org/x/exp v0.0.0-20240416160154-fe59bbe5cc7f // indirect
 	golang.org/x/mod v0.17.0 // indirect
 	golang.org/x/net v0.24.0 // indirect
 	golang.org/x/oauth2 v0.19.0 // indirect
