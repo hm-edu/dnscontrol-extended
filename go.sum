@@ -57,8 +57,8 @@ github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81P
 github.com/stretchr/testify v1.7.2/go.mod h1:R6va5+xMeoiuVRoj+gSkQ7d3FALtqAAGI1FQKckRals=
 github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsTg=
 github.com/stretchr/testify v1.9.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
-github.com/xanzy/go-gitlab v0.104.1 h1:g/liXIPJH0jsTwVuzTAUMiKdTf6Qup3u2XZq5Rp90Wc=
-github.com/xanzy/go-gitlab v0.104.1/go.mod h1:ETg8tcj4OhrB84UEgeE8dSuV/0h4BBL1uOV/qK0vlyI=
+github.com/xanzy/go-gitlab v0.105.0 h1:3nyLq0ESez0crcaM19o5S//SvezOQguuIHZ3wgX64hM=
+github.com/xanzy/go-gitlab v0.105.0/go.mod h1:ETg8tcj4OhrB84UEgeE8dSuV/0h4BBL1uOV/qK0vlyI=
 github.com/xddxdd/ottoext v0.0.0-20221109171055-210517fa4419 h1:PT5KYEimicg1GRkBtBxCLcHWvMcBRGljOLwG/y4+T5c=
 github.com/xddxdd/ottoext v0.0.0-20221109171055-210517fa4419/go.mod h1:BxZUa1xZ189Ww28wRT0LjHcmHgQmPh27hqfHIwET0ok=
 go.uber.org/goleak v1.3.0 h1:2K3zAYmnTNqV73imy9J1T3WC+gmCePx2hEGkimedGto=
