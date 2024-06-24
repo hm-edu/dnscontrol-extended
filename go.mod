@@ -5,7 +5,7 @@ go 1.22.2
 require (
 	github.com/StackExchange/dnscontrol/v4 v4.12.0
 	github.com/spf13/cobra v1.8.1
-	github.com/xanzy/go-gitlab v0.105.0
+	github.com/xanzy/go-gitlab v0.106.0
 	go.uber.org/zap v1.27.0
 	golang.org/x/time v0.5.0
 )
