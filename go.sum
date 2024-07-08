@@ -1,5 +1,5 @@
-github.com/StackExchange/dnscontrol/v4 v4.12.2 h1:noLjkTHqsfbpcdaKQADCp2t5wHF9YKqXfrDSESosZV0=
-github.com/StackExchange/dnscontrol/v4 v4.12.2/go.mod h1:zBNzQueV7seR9RuKrqT0DTMmb5dAvmbmaaIgn8FtaTA=
+github.com/StackExchange/dnscontrol/v4 v4.12.3 h1:PMNsUH1kwpIlynSixVrghLAdqwIru9X1UtWO/+5rBTA=
+github.com/StackExchange/dnscontrol/v4 v4.12.3/go.mod h1:zBNzQueV7seR9RuKrqT0DTMmb5dAvmbmaaIgn8FtaTA=
 github.com/cpuguy83/go-md2man/v2 v2.0.4/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46tRHOmNcaadrF8o=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
