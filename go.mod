@@ -7,7 +7,7 @@ require (
 	github.com/spf13/cobra v1.8.1
 	github.com/xanzy/go-gitlab v0.109.0
 	go.uber.org/zap v1.27.0
-	golang.org/x/time v0.6.0
+	golang.org/x/time v0.7.0
 )
 
 require (
