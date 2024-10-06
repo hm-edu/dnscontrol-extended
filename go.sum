@@ -59,6 +59,8 @@ github.com/xanzy/go-gitlab v0.108.0 h1:IEvEUWFR5G1seslRhJ8gC//INiIUqYXuSUoBd7/gF
 github.com/xanzy/go-gitlab v0.108.0/go.mod h1:wKNKh3GkYDMOsGmnfuX+ITCmDuSDWFO0G+C4AygL9RY=
 github.com/xanzy/go-gitlab v0.109.0 h1:RcRme5w8VpLXTSTTMZdVoQWY37qTJWg+gwdQl4aAttE=
 github.com/xanzy/go-gitlab v0.109.0/go.mod h1:wKNKh3GkYDMOsGmnfuX+ITCmDuSDWFO0G+C4AygL9RY=
+github.com/xanzy/go-gitlab v0.110.0 h1:hsFIFp01v/0D0sdUXoZfRk6CROzZbHQplk6NzKSFKhc=
+github.com/xanzy/go-gitlab v0.110.0/go.mod h1:wKNKh3GkYDMOsGmnfuX+ITCmDuSDWFO0G+C4AygL9RY=
 github.com/xddxdd/ottoext v0.0.0-20221109171055-210517fa4419 h1:PT5KYEimicg1GRkBtBxCLcHWvMcBRGljOLwG/y4+T5c=
 github.com/xddxdd/ottoext v0.0.0-20221109171055-210517fa4419/go.mod h1:BxZUa1xZ189Ww28wRT0LjHcmHgQmPh27hqfHIwET0ok=
 go.uber.org/goleak v1.3.0 h1:2K3zAYmnTNqV73imy9J1T3WC+gmCePx2hEGkimedGto=
