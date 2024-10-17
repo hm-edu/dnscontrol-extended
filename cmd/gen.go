@@ -177,7 +177,7 @@ var genCmd = &cobra.Command{
 				Metadata:    make(map[string]string),
 			}
 			config.Metadata[models.DomainUniqueName] = name
-			_, corrections, err := zonerecs.CorrectZoneRecords(provider, &config)
+			_, corrections, _, err := zonerecs.CorrectZoneRecords(provider, &config)
 			if err != nil {
 				logger.Sugar().Fatalf("error computing domain corrections %v", err)
 			}
