@@ -5,7 +5,7 @@ go 1.23.0
 toolchain go1.23.2
 
 require (
-	github.com/StackExchange/dnscontrol/v4 v4.14.0
+	github.com/StackExchange/dnscontrol/v4 v4.14.1
 	github.com/spf13/cobra v1.8.1
 	github.com/xanzy/go-gitlab v0.112.0
 	go.uber.org/zap v1.27.0
@@ -13,7 +13,7 @@ require (
 )
 
 require (
-	github.com/fatih/color v1.17.0 // indirect
+	github.com/fatih/color v1.18.0 // indirect
 	github.com/gobwas/glob v0.2.4-0.20181002190808-e7a84e9525fe // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
