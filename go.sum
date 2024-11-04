@@ -4,12 +4,16 @@ github.com/StackExchange/dnscontrol/v4 v4.13.0 h1:PoIx3WUdiUcyvirvD+YiBvutPhyc52
 github.com/StackExchange/dnscontrol/v4 v4.13.0/go.mod h1:JZ9j37FD/5M3IT7rPI91NrvAPLaEnG5Soplr6CMZuNI=
 github.com/StackExchange/dnscontrol/v4 v4.14.0 h1:l6g+p7gh71cBkM46KWS/HZJPARdidQKyN4n2Ut85Myo=
 github.com/StackExchange/dnscontrol/v4 v4.14.0/go.mod h1:arTd0zByGLx7YNtUI2tEKbYZodV18M4+ynrTeb41dtE=
+github.com/StackExchange/dnscontrol/v4 v4.14.1 h1:TwzuRSRgDoY7lwPW7gENmMl+Jp6rKCGsb61fhhTBdcM=
+github.com/StackExchange/dnscontrol/v4 v4.14.1/go.mod h1:KMIkwsDeJjR7rruTjKGwyabmq5r1YvwZOGsIZRFIX2s=
 github.com/cpuguy83/go-md2man/v2 v2.0.4/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46tRHOmNcaadrF8o=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/fatih/color v1.17.0 h1:GlRw1BRJxkpqUCBKzKOw098ed57fEsKeNjpTe3cSjK4=
 github.com/fatih/color v1.17.0/go.mod h1:YZ7TlrGPkiz6ku9fK3TLD/pl3CpsiFyu8N92HLgmosI=
+github.com/fatih/color v1.18.0 h1:S8gINlzdQ840/4pfAwic/ZE0djQEH3wM94VfqLTZcOM=
+github.com/fatih/color v1.18.0/go.mod h1:4FelSpRwEGDpQ12mAdzqdOukCy4u8WUtOY6lkT/6HfU=
 github.com/gobwas/glob v0.2.4-0.20181002190808-e7a84e9525fe h1:zn8tqiUbec4wR94o7Qj3LZCAT6uGobhEgnDRg6isG5U=
 github.com/gobwas/glob v0.2.4-0.20181002190808-e7a84e9525fe/go.mod h1:d3Ez4x06l9bZtSvzIay5+Yzi0fmZzPgnTbPcKjJAkT8=
 github.com/google/go-cmp v0.5.2/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
