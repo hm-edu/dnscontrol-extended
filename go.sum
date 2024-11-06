@@ -6,6 +6,8 @@ github.com/StackExchange/dnscontrol/v4 v4.14.0 h1:l6g+p7gh71cBkM46KWS/HZJPARdidQ
 github.com/StackExchange/dnscontrol/v4 v4.14.0/go.mod h1:arTd0zByGLx7YNtUI2tEKbYZodV18M4+ynrTeb41dtE=
 github.com/StackExchange/dnscontrol/v4 v4.14.1 h1:TwzuRSRgDoY7lwPW7gENmMl+Jp6rKCGsb61fhhTBdcM=
 github.com/StackExchange/dnscontrol/v4 v4.14.1/go.mod h1:KMIkwsDeJjR7rruTjKGwyabmq5r1YvwZOGsIZRFIX2s=
+github.com/StackExchange/dnscontrol/v4 v4.14.2 h1:aCsrgaYh5MYZ/2dGCStyINZqNdZUMs+FbT1FPfK1eis=
+github.com/StackExchange/dnscontrol/v4 v4.14.2/go.mod h1:pfqQnFfBIogy1VX2VYS7/I1b2t9p3vfOKc5wVxOz+Vo=
 github.com/cpuguy83/go-md2man/v2 v2.0.4/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46tRHOmNcaadrF8o=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
