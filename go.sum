@@ -12,6 +12,8 @@ github.com/StackExchange/dnscontrol/v4 v4.14.3 h1:Xe+Z+8HIeOiDRr0UsGtgYw7E+oWANr
 github.com/StackExchange/dnscontrol/v4 v4.14.3/go.mod h1:VDQiUU0nXbEFGGBy/pNUTEbCYLrTh467StFlE6sTPwU=
 github.com/StackExchange/dnscontrol/v4 v4.15.0 h1:+x2MCkJcwQnQyxJviBFdg5ioHdQFalj1EQLY2r1hw6E=
 github.com/StackExchange/dnscontrol/v4 v4.15.0/go.mod h1:UEIK0BEzzDWqe6d0jJA5Y0HkicMRmdiiy7b9wIx7c4E=
+github.com/StackExchange/dnscontrol/v4 v4.15.1 h1:pzU72E57vBi2S6kbefFz7Ve2DOwq5UyLYM5itg46z4M=
+github.com/StackExchange/dnscontrol/v4 v4.15.1/go.mod h1:UEIK0BEzzDWqe6d0jJA5Y0HkicMRmdiiy7b9wIx7c4E=
 github.com/cpuguy83/go-md2man/v2 v2.0.4/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46tRHOmNcaadrF8o=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
