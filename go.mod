@@ -6,7 +6,7 @@ toolchain go1.24.0
 
 require (
 	github.com/StackExchange/dnscontrol/v4 v4.16.0
-	github.com/spf13/cobra v1.8.1
+	github.com/spf13/cobra v1.9.1
 	github.com/xanzy/go-gitlab v0.115.0
 	go.uber.org/zap v1.27.0
 	golang.org/x/time v0.10.0
@@ -37,5 +37,5 @@ require (
 require (
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/miekg/dns v1.1.63
-	github.com/spf13/pflag v1.0.5 // indirect
+	github.com/spf13/pflag v1.0.6 // indirect
 )
