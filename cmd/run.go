@@ -18,7 +18,7 @@ import (
 	"github.com/hm-edu/dnscontrol-extended/helper"
 	"github.com/miekg/dns"
 	"github.com/spf13/cobra"
-	"github.com/xanzy/go-gitlab"
+	gitlab "gitlab.com/gitlab-org/api/client-go"
 )
 
 func init() {
@@ -146,8 +146,8 @@ var runCmd = &cobra.Command{
 		for _, item := range labels {
 			// Create tags if not existing
 			_, _, err := client.Labels.CreateLabel(projectID, &gitlab.CreateLabelOptions{
-				Name:  gitlab.String(item.Label),
-				Color: gitlab.String(fmt.Sprintf("#%06x", item.Color))})
+				Name:  gitlab.Ptr(item.Label),
+				Color: gitlab.Ptr(fmt.Sprintf("#%06x", item.Color))})
 			if err != nil {
 				logger.Sugar().Warn(err)
 			}

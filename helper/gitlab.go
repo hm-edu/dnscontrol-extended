@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/xanzy/go-gitlab"
+	gitlab "gitlab.com/gitlab-org/api/client-go"
 	"go.uber.org/zap"
 )
 
@@ -124,7 +124,7 @@ func GenerateGitlabIssue(zones []SubnetResponse, pat, api, projectID, zone strin
 			}
 			if failed {
 				for i, issue := range issues {
-					_, _, err := client.Issues.UpdateIssue(project.ID, issue.IID, &gitlab.UpdateIssueOptions{StateEvent: gitlab.String("close")})
+					_, _, err := client.Issues.UpdateIssue(project.ID, issue.IID, &gitlab.UpdateIssueOptions{StateEvent: gitlab.Ptr("close")})
 					if err != nil {
 						logger.Sugar().Errorf("Closing issue %s failed.", issue.Title)
 					}

@@ -8,6 +8,7 @@ require (
 	github.com/StackExchange/dnscontrol/v4 v4.20.0
 	github.com/spf13/cobra v1.9.1
 	github.com/xanzy/go-gitlab v0.115.0
+	gitlab.com/gitlab-org/api/client-go v0.129.0
 	go.uber.org/zap v1.27.0
 	golang.org/x/time v0.11.0
 )
@@ -19,7 +20,7 @@ require (
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.7 // indirect
 	github.com/jinzhu/copier v0.4.0 // indirect
-	github.com/mattn/go-colorable v0.1.13 // indirect
+	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/qdm12/reprint v0.0.0-20200326205758-722754a53494 // indirect
