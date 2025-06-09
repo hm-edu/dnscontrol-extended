@@ -10,7 +10,7 @@ require (
 	github.com/xanzy/go-gitlab v0.115.0
 	gitlab.com/gitlab-org/api/client-go v0.129.0
 	go.uber.org/zap v1.27.0
-	golang.org/x/time v0.11.0
+	golang.org/x/time v0.12.0
 )
 
 require (
