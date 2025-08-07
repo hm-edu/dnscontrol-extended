@@ -1,11 +1,11 @@
 module github.com/hm-edu/dnscontrol-extended
 
-go 1.23.0
+go 1.24.0
 
 toolchain go1.24.6
 
 require (
-	github.com/StackExchange/dnscontrol/v4 v4.22.0
+	github.com/StackExchange/dnscontrol/v4 v4.23.0
 	github.com/spf13/cobra v1.9.1
 	github.com/xanzy/go-gitlab v0.115.0
 	gitlab.com/gitlab-org/api/client-go v0.134.0
@@ -25,7 +25,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/qdm12/reprint v0.0.0-20200326205758-722754a53494 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	golang.org/x/exp v0.0.0-20250711185948-6ae5c78190dc // indirect
+	golang.org/x/exp v0.0.0-20250718183923-645b1fa84792 // indirect
 	golang.org/x/mod v0.26.0 // indirect
 	golang.org/x/net v0.42.0 // indirect
 	golang.org/x/oauth2 v0.30.0 // indirect
