@@ -2,7 +2,7 @@ module github.com/hm-edu/dnscontrol-extended
 
 go 1.25
 
-toolchain go1.25.2
+toolchain go1.25.3
 
 require (
 	github.com/StackExchange/dnscontrol/v4 v4.26.0
