@@ -8,7 +8,7 @@ require (
 	github.com/StackExchange/dnscontrol/v4 v4.27.1
 	github.com/spf13/cobra v1.10.1
 	github.com/xanzy/go-gitlab v0.115.0
-	gitlab.com/gitlab-org/api/client-go v0.161.1
+	gitlab.com/gitlab-org/api/client-go v1.2.0
 	go.uber.org/zap v1.27.1
 	golang.org/x/time v0.14.0
 )
@@ -28,10 +28,10 @@ require (
 	golang.org/x/exp v0.0.0-20251023183803-a4bb9ffd2546 // indirect
 	golang.org/x/mod v0.29.0 // indirect
 	golang.org/x/net v0.46.0 // indirect
-	golang.org/x/oauth2 v0.32.0 // indirect
-	golang.org/x/sync v0.17.0 // indirect
-	golang.org/x/sys v0.37.0 // indirect
-	golang.org/x/text v0.30.0 // indirect
+	golang.org/x/oauth2 v0.33.0 // indirect
+	golang.org/x/sync v0.18.0 // indirect
+	golang.org/x/sys v0.38.0 // indirect
+	golang.org/x/text v0.31.0 // indirect
 	golang.org/x/tools v0.38.0 // indirect
 )
 
