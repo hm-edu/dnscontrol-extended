@@ -5,7 +5,7 @@ go 1.25
 toolchain go1.25.5
 
 require (
-	github.com/StackExchange/dnscontrol/v4 v4.28.0
+	github.com/StackExchange/dnscontrol/v4 v4.28.1
 	github.com/spf13/cobra v1.10.2
 	github.com/xanzy/go-gitlab v0.115.0
 	gitlab.com/gitlab-org/api/client-go v0.161.1
