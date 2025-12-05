@@ -154,7 +154,7 @@ var runCmd = &cobra.Command{
 		}
 
 		var items []*gitlab.Issue
-		page := 1
+		page := int64(1)
 		for {
 			ListOptions := gitlab.ListOptions{PerPage: 100, Page: page}
 			x, resp, err := client.Issues.ListProjectIssues(project.ID, &gitlab.ListProjectIssuesOptions{ListOptions: ListOptions})
@@ -162,7 +162,7 @@ var runCmd = &cobra.Command{
 				panic(err)
 			}
 			items = append(items, x...)
-			if len(items) == resp.TotalItems {
+			if int64(len(items)) == resp.TotalItems {
 				break
 			}
 			page++

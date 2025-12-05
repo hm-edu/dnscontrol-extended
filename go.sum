@@ -126,6 +126,8 @@ github.com/spf13/pflag v1.0.6 h1:jFzHGLGAlb3ruxLB8MhbI6A8+AQX/2eW4qeyNZXNp2o=
 github.com/spf13/pflag v1.0.6/go.mod h1:McXfInJRrz4CZXVZOBLb0bTZqETkiAhM9Iw0y3An2Bg=
 github.com/spf13/pflag v1.0.9 h1:9exaQaMOCwffKiiiYk6/BndUBv+iRViNW+4lEMi0PvY=
 github.com/spf13/pflag v1.0.9/go.mod h1:McXfInJRrz4CZXVZOBLb0bTZqETkiAhM9Iw0y3An2Bg=
+github.com/spf13/pflag v1.0.10 h1:4EBh2KAYBwaONj6b2Ye1GiHfwjqyROoF4RwYO+vPwFk=
+github.com/spf13/pflag v1.0.10/go.mod h1:McXfInJRrz4CZXVZOBLb0bTZqETkiAhM9Iw0y3An2Bg=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
 github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsTg=
@@ -216,6 +218,8 @@ gitlab.com/gitlab-org/api/client-go v0.160.2 h1:InFTeAoGZoQWFS+4xA2kjOp+FaxnuuUs
 gitlab.com/gitlab-org/api/client-go v0.160.2/go.mod h1:YqKcnxyV9OPAL5U99mpwBVEgBPz1PK/3qwqq/3h6bao=
 gitlab.com/gitlab-org/api/client-go v0.161.1 h1:XX0EtVGL6cGEdNy9xnJ96CSciIzjCwAVsayItHY1YyU=
 gitlab.com/gitlab-org/api/client-go v0.161.1/go.mod h1:YqKcnxyV9OPAL5U99mpwBVEgBPz1PK/3qwqq/3h6bao=
+gitlab.com/gitlab-org/api/client-go v1.5.0 h1:kEHoqgNywPXV+I0oORiaOqy4hnWuqbUyPnl0tAF7anM=
+gitlab.com/gitlab-org/api/client-go v1.5.0/go.mod h1:RQfw64j1FE+KMZUAKsi1ZOOvwbWxHn9SkyZg+IAvjk4=
 go.uber.org/goleak v1.3.0 h1:2K3zAYmnTNqV73imy9J1T3WC+gmCePx2hEGkimedGto=
 go.uber.org/goleak v1.3.0/go.mod h1:CoHD4mav9JJNrW/WLlf7HGZPjdw8EucARQHekz1X6bE=
 go.uber.org/multierr v1.11.0 h1:blXXJkSxSSfBVBlC76pxqeO+LN3aDfLQo+309xJstO0=
