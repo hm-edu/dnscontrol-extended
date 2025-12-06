@@ -8,7 +8,7 @@ require (
 	github.com/StackExchange/dnscontrol/v4 v4.28.1
 	github.com/spf13/cobra v1.10.2
 	github.com/xanzy/go-gitlab v0.115.0
-	gitlab.com/gitlab-org/api/client-go v0.161.1
+	gitlab.com/gitlab-org/api/client-go v1.5.0
 	go.uber.org/zap v1.27.1
 	golang.org/x/time v0.14.0
 )
@@ -38,5 +38,5 @@ require (
 require (
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/miekg/dns v1.1.68
-	github.com/spf13/pflag v1.0.9 // indirect
+	github.com/spf13/pflag v1.0.10 // indirect
 )
