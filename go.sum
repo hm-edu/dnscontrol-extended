@@ -52,6 +52,8 @@ github.com/StackExchange/dnscontrol/v4 v4.28.0 h1:3/3OK6NKWtWdFvp23aEsWYGXFqZLkO
 github.com/StackExchange/dnscontrol/v4 v4.28.0/go.mod h1:LmPkyxt8SrzljRVS82B78779rjImo/5wIe7lUZfQmLs=
 github.com/StackExchange/dnscontrol/v4 v4.28.1 h1:b6XgNUkz9Qy29I4ptSowD8O6OnKxn/PYGDt12g77V8k=
 github.com/StackExchange/dnscontrol/v4 v4.28.1/go.mod h1:LmPkyxt8SrzljRVS82B78779rjImo/5wIe7lUZfQmLs=
+github.com/StackExchange/dnscontrol/v4 v4.28.2 h1:i+oCtyPahIYQF9/DncdyCtMDW8KgHlrHXw5An2G+6u8=
+github.com/StackExchange/dnscontrol/v4 v4.28.2/go.mod h1:MjvJDnzo0Rg5dufB2oCBS3HlPwPKqirnvukaQ072/9Y=
 github.com/cpuguy83/go-md2man/v2 v2.0.4/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46tRHOmNcaadrF8o=
 github.com/cpuguy83/go-md2man/v2 v2.0.6/go.mod h1:oOW0eioCTA6cOiMLiUPZOpcVxMig6NIQQ7OS05n1F4g=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -338,6 +340,8 @@ golang.org/x/oauth2 v0.32.0 h1:jsCblLleRMDrxMN29H3z/k1KliIvpLgCkE6R8FXXNgY=
 golang.org/x/oauth2 v0.32.0/go.mod h1:lzm5WQJQwKZ3nwavOZ3IS5Aulzxi68dUSgRHujetwEA=
 golang.org/x/oauth2 v0.33.0 h1:4Q+qn+E5z8gPRJfmRy7C2gGG3T4jIprK6aSYgTXGRpo=
 golang.org/x/oauth2 v0.33.0/go.mod h1:lzm5WQJQwKZ3nwavOZ3IS5Aulzxi68dUSgRHujetwEA=
+golang.org/x/oauth2 v0.34.0 h1:hqK/t4AKgbqWkdkcAeI8XLmbK+4m4G5YeQRrmiotGlw=
+golang.org/x/oauth2 v0.34.0/go.mod h1:lzm5WQJQwKZ3nwavOZ3IS5Aulzxi68dUSgRHujetwEA=
 golang.org/x/sync v0.7.0 h1:YsImfSBoP9QPYL0xyKJPq0gcaJdG3rInoqxTWbfQu9M=
 golang.org/x/sync v0.7.0/go.mod h1:Czt+wKu1gCyEFDUtn0jG5QVvpJ6rzVqr5aXyt9drQfk=
 golang.org/x/sync v0.8.0 h1:3NFvSEYkUoMifnESzZl15y791HH1qU2xm6eCJU5ZPXQ=

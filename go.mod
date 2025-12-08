@@ -5,7 +5,7 @@ go 1.25
 toolchain go1.25.5
 
 require (
-	github.com/StackExchange/dnscontrol/v4 v4.28.1
+	github.com/StackExchange/dnscontrol/v4 v4.28.2
 	github.com/spf13/cobra v1.10.2
 	github.com/xanzy/go-gitlab v0.115.0
 	gitlab.com/gitlab-org/api/client-go v1.7.0
@@ -28,7 +28,7 @@ require (
 	golang.org/x/exp v0.0.0-20251125195548-87e1e737ad39 // indirect
 	golang.org/x/mod v0.30.0 // indirect
 	golang.org/x/net v0.47.0 // indirect
-	golang.org/x/oauth2 v0.33.0 // indirect
+	golang.org/x/oauth2 v0.34.0 // indirect
 	golang.org/x/sync v0.18.0 // indirect
 	golang.org/x/sys v0.38.0 // indirect
 	golang.org/x/text v0.31.0 // indirect
