@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/StackExchange/dnscontrol/v4/pkg/dnsrr"
 	"github.com/StackExchange/dnscontrol/v4/pkg/printer"
 	"github.com/StackExchange/dnscontrol/v4/pkg/zonerecs"
 	"github.com/hm-edu/dnscontrol-extended/helper"
@@ -93,7 +94,7 @@ var genCmd = &cobra.Command{
 			entries := make(map[string]string)
 			ptrRecords := models.Records{}
 
-			rec, err := models.RRtoRC(soa, name)
+			rec, err := dnsrr.RRtoRC(soa, name)
 			if err != nil {
 				logger.Sugar().Fatalf("error generating reverse zone for %s %v", zone, err)
 			}
@@ -103,7 +104,7 @@ var genCmd = &cobra.Command{
 
 				dnsRR, _ := dns.NewRR(fmt.Sprintf("%s IN NS %s", name, server))
 
-				rec, err := models.RRtoRC(dnsRR, name)
+				rec, err := dnsrr.RRtoRC(dnsRR, name)
 				if err != nil {
 					logger.Sugar().Fatalf("error generating reverse zone for %s %v", zone, err)
 				}
@@ -159,7 +160,7 @@ var genCmd = &cobra.Command{
 				if err != nil {
 					log.Fatalf("error adding ptr %v", err)
 				}
-				rec, err := models.RRtoRC(rr, name)
+				rec, err := dnsrr.RRtoRC(rr, name)
 				if err != nil {
 					log.Fatalf("error adding ptr %v", err)
 				}
