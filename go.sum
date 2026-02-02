@@ -1,3 +1,5 @@
+codeberg.org/miekg/dns v0.6.40 h1:dzO+f0pcQEejc5kQYhOV8pSdJ14uc640M21valACl4s=
+codeberg.org/miekg/dns v0.6.40/go.mod h1:fIxAzBMDPnXWSw0fp8+pfZMRiAqYY4+HHYLzUo/S6Dg=
 github.com/StackExchange/dnscontrol/v4 v4.30.0 h1:+0hKQ5VrWctgjccCCWK/56GZyZhRHxl4UbZGZO/VXZ4=
 github.com/StackExchange/dnscontrol/v4 v4.30.0/go.mod h1:eXy38+eOHGGKPKzQBKHd7aXXH6NEopnjX6vk+7uccTI=
 github.com/StackExchange/dnscontrol/v4 v4.31.0 h1:puRC7ysVWJ1XBpRAPVLlE6O94pBoIZ14I/LdyTRMCu8=
@@ -6,6 +8,8 @@ github.com/StackExchange/dnscontrol/v4 v4.31.1 h1:tLAgTdyCVyabTylNOilItSGIZLSKgY
 github.com/StackExchange/dnscontrol/v4 v4.31.1/go.mod h1:0CztEPoiPE5HSo+IIQK2wHQVQDY4O81pqStBNHHqZPI=
 github.com/StackExchange/dnscontrol/v4 v4.32.0 h1:R8ZCpr4X6GenKzglQM2FFEQD3WbQqWFWKEfeNySqI08=
 github.com/StackExchange/dnscontrol/v4 v4.32.0/go.mod h1:CrsRC5RGCMlBddKWh2k/nh0T8uCqiqUhWcBYaEJN8Ms=
+github.com/StackExchange/dnscontrol/v4 v4.33.0 h1:ZlwG4axNQVAzNJ266L221Z8oUB8Rus3Zo+qTIIlFdCc=
+github.com/StackExchange/dnscontrol/v4 v4.33.0/go.mod h1:q+BnNrB7hMVY2yXgICG/Su/dumLW9HWc4+KVfDTW5YU=
 github.com/cpuguy83/go-md2man/v2 v2.0.6/go.mod h1:oOW0eioCTA6cOiMLiUPZOpcVxMig6NIQQ7OS05n1F4g=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -102,6 +106,8 @@ go.uber.org/multierr v1.11.0/go.mod h1:20+QtiLqy0Nd6FdQB9TLXag12DsQkrbs3htMFfDN8
 go.uber.org/zap v1.27.1 h1:08RqriUEv8+ArZRYSTXy1LeBScaMpVSTBhCeaZYfMYc=
 go.uber.org/zap v1.27.1/go.mod h1:GB2qFLM7cTU87MWRP2mPIjqfIDnGu+VIO4V/SdhGo2E=
 go.yaml.in/yaml/v3 v3.0.4/go.mod h1:DhzuOOF2ATzADvBadXxruRBLzYTpT36CKvDb3+aBEFg=
+golang.org/x/crypto v0.47.0 h1:V6e3FRj+n4dbpw86FJ8Fv7XVOql7TEwpHapKoMJ/GO8=
+golang.org/x/crypto v0.47.0/go.mod h1:ff3Y9VzzKbwSSEzWqJsJVBnWmRwRSHt/6Op5n9bQc4A=
 golang.org/x/mod v0.31.0 h1:HaW9xtz0+kOcWKwli0ZXy79Ix+UW/vOfmWI5QVd2tgI=
 golang.org/x/mod v0.31.0/go.mod h1:43JraMp9cGx1Rx3AqioxrbrhNsLl2l/iNAvuBkrezpg=
 golang.org/x/mod v0.32.0 h1:9F4d3PHLljb6x//jOyokMv3eX+YDeepZSEo3mFJy93c=
