@@ -7,7 +7,7 @@ toolchain go1.26.0
 require (
 	github.com/StackExchange/dnscontrol/v4 v4.34.0
 	github.com/spf13/cobra v1.10.2
-	gitlab.com/gitlab-org/api/client-go v1.38.0
+	gitlab.com/gitlab-org/api/client-go v1.39.0
 	go.uber.org/zap v1.27.1
 	golang.org/x/time v0.14.0
 )
