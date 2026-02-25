@@ -20,5 +20,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        TAG="v$(date +'%Y.%m.%d')"
+        LATEST=$(gh release view --json tagName -q .tagName)
+        MAJOR=$(echo "$LATEST" | sed 's/^v//' | cut -d. -f1)
+        MINOR=$(echo "$LATEST" | sed 's/^v//' | cut -d. -f2)
+        PATCH=$(echo "$LATEST" | sed 's/^v//' | cut -d. -f3)
+        TAG="v${MAJOR}.${MINOR}.$((PATCH + 1))"
         gh release create "$TAG" --title "$TAG" --generate-notes
