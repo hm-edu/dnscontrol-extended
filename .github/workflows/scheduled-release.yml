@@ -1,0 +1,24 @@
+on:
+  schedule:
+    - cron: '0 0 * * 1'
+
+name: Scheduled Release
+jobs:
+  release:
+    name: Create Weekly Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+
+    - name: Checkout repo
+      uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+
+    - name: Create weekly release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        TAG="v$(date +'%Y.%m.%d')"
+        gh release create "$TAG" --title "$TAG" --generate-notes
