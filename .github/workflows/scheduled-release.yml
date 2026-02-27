@@ -21,6 +21,11 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         LATEST=$(gh release view --json tagName -q .tagName)
+        CHANGES=$(git log "${LATEST}..HEAD" --oneline)
+        if [ -z "$CHANGES" ]; then
+          echo "No changes since ${LATEST}, skipping release."
+          exit 0
+        fi
         MAJOR=$(echo "$LATEST" | sed 's/^v//' | cut -d. -f1)
         MINOR=$(echo "$LATEST" | sed 's/^v//' | cut -d. -f2)
         PATCH=$(echo "$LATEST" | sed 's/^v//' | cut -d. -f3)
