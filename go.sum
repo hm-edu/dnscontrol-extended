@@ -6,6 +6,8 @@ codeberg.org/miekg/dns v0.6.62 h1:3Uua303EC8Og75QqT+pGRrcvKNTOouehHOQS36KbSqc=
 codeberg.org/miekg/dns v0.6.62/go.mod h1:fIxAzBMDPnXWSw0fp8+pfZMRiAqYY4+HHYLzUo/S6Dg=
 codeberg.org/miekg/dns v0.6.67 h1:vsVNsqAOE9uYscJHIHNtoCxiEySQn/B9BEvAUYI5Zmc=
 codeberg.org/miekg/dns v0.6.67/go.mod h1:58Y3ZTg6Z5ZEm/ZAAwHehbZfrD4u5mE4RByHoPEMyKk=
+codeberg.org/miekg/dns v0.6.69 h1:Qe9kugfqln2V36fqv5DCa0frMhMftUj2NArdmCudKzc=
+codeberg.org/miekg/dns v0.6.69/go.mod h1:58Y3ZTg6Z5ZEm/ZAAwHehbZfrD4u5mE4RByHoPEMyKk=
 github.com/StackExchange/dnscontrol/v4 v4.30.0 h1:+0hKQ5VrWctgjccCCWK/56GZyZhRHxl4UbZGZO/VXZ4=
 github.com/StackExchange/dnscontrol/v4 v4.30.0/go.mod h1:eXy38+eOHGGKPKzQBKHd7aXXH6NEopnjX6vk+7uccTI=
 github.com/StackExchange/dnscontrol/v4 v4.31.0 h1:puRC7ysVWJ1XBpRAPVLlE6O94pBoIZ14I/LdyTRMCu8=
@@ -24,6 +26,8 @@ github.com/StackExchange/dnscontrol/v4 v4.35.0 h1:V1ZNRQLyHw/wWs6oRlVU3Z6CqRHjec
 github.com/StackExchange/dnscontrol/v4 v4.35.0/go.mod h1:XQiuRPVcPW51mjY7kWDJgoWCycFbr015qMYMbMaMork=
 github.com/StackExchange/dnscontrol/v4 v4.36.0 h1:xG6meSQTKZjM+TsA1pB5BhNFgvdfUhdXXFk1zKd6DUg=
 github.com/StackExchange/dnscontrol/v4 v4.36.0/go.mod h1:7fgVrun0ecnT8fJhcFHQQXBg6yVIfEWRRQOj27hxm+s=
+github.com/StackExchange/dnscontrol/v4 v4.36.1 h1:cGHrnQaWTnW3QkBCIVhBNa01DT3sidLKO4QYhg8k6IE=
+github.com/StackExchange/dnscontrol/v4 v4.36.1/go.mod h1:C++1RAaL3pDtayujhziwJojQzTQl6iRXk6B4KnR/qVA=
 github.com/cpuguy83/go-md2man/v2 v2.0.6/go.mod h1:oOW0eioCTA6cOiMLiUPZOpcVxMig6NIQQ7OS05n1F4g=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
