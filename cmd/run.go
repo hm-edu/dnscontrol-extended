@@ -18,7 +18,7 @@ import (
 	"github.com/hm-edu/dnscontrol-extended/helper"
 	"github.com/miekg/dns"
 	"github.com/spf13/cobra"
-	gitlab "gitlab.com/gitlab-org/api/client-go"
+	gitlab "gitlab.com/gitlab-org/api/client-go/v2"
 )
 
 func init() {
