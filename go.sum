@@ -59,6 +59,8 @@ github.com/xddxdd/ottoext v0.0.0-20221109171055-210517fa4419 h1:PT5KYEimicg1GRkB
 github.com/xddxdd/ottoext v0.0.0-20221109171055-210517fa4419/go.mod h1:BxZUa1xZ189Ww28wRT0LjHcmHgQmPh27hqfHIwET0ok=
 gitlab.com/gitlab-org/api/client-go/v2 v2.7.0 h1:SbRM5hguGyHqyYhEszveQ4/DhYyYMV/oKV5qTczLqNA=
 gitlab.com/gitlab-org/api/client-go/v2 v2.7.0/go.mod h1:VgLJtaCDLsRwjgiwZLA4mDH31R44eRxp1vgUHuZnbvM=
+gitlab.com/gitlab-org/api/client-go/v2 v2.11.0 h1:jsHju3ttwLvoF2FCAGNF+Q3HHe7WkQ6aWI4gttliNYQ=
+gitlab.com/gitlab-org/api/client-go/v2 v2.11.0/go.mod h1:nwCC627kJqfhrjsK9+yM2hRGmXFbtR5hrIhsav0+EGk=
 go.uber.org/goleak v1.3.0 h1:2K3zAYmnTNqV73imy9J1T3WC+gmCePx2hEGkimedGto=
 go.uber.org/goleak v1.3.0/go.mod h1:CoHD4mav9JJNrW/WLlf7HGZPjdw8EucARQHekz1X6bE=
 go.uber.org/multierr v1.11.0 h1:blXXJkSxSSfBVBlC76pxqeO+LN3aDfLQo+309xJstO0=
