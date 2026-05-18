@@ -1,6 +1,12 @@
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Release tag to publish artifacts and Docker image for
+        required: true
+        type: string
 
 name: release
 jobs:
@@ -12,21 +18,24 @@ jobs:
       REGISTRY: ghcr.io
       # github.repository as <account>/<repo>
       IMAGE_NAME: ${{ github.repository }}
+      RELEASE_TAG: ${{ github.event.release.tag_name || inputs.release_tag }}
     permissions:
       contents: write
       packages: write
     steps:
 
-    - name: Get release
-      id: get_release
-      uses: bruceadams/get-release@v1.3.2
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
+    - name: Validate release tag
+      run: |
+        if [ -z "${RELEASE_TAG}" ]; then
+          echo "Release tag is required" >&2
+          exit 1
+        fi
 
     - name: Checkout repo
       uses: actions/checkout@v6
       with:
         fetch-depth: 0
+        ref: ${{ env.RELEASE_TAG }}
 
     - name: Set up Go
       uses: actions/setup-go@v6
@@ -38,19 +47,10 @@ jobs:
       env:
         CGO_ENABLED: 0
 
-    - name: Get release from tag
-      run: echo ::set-output name=RELEASE_VERSION::$(echo ${GITHUB_REF:11})
-      id: versioner
-
     - name: Upload dnscontrol-extended
-      uses: actions/upload-release-asset@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.get_release.outputs.upload_url }}
-        asset_path: ./dnscontrol-extended
-        asset_name: dnscontrol-extended
-        asset_content_type: application/octet-stream
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: gh release upload "${RELEASE_TAG}" ./dnscontrol-extended#dnscontrol-extended --clobber
 
     - name: Set up Docker Buildx
       id: buildx
@@ -72,6 +72,7 @@ jobs:
           type=ref,event=branch
           type=ref,event=tag
           type=ref,event=pr
+          type=raw,value=${{ env.RELEASE_TAG }},enable=${{ env.RELEASE_TAG != '' }}
           
     - name: Build and push
       uses: docker/build-push-action@v7
