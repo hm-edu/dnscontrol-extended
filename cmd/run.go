@@ -14,7 +14,7 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/time/rate"
 
-	"github.com/StackExchange/dnscontrol/v4/pkg/transform"
+	"github.com/DNSControl/dnscontrol/v4/pkg/transform"
 	"github.com/hm-edu/dnscontrol-extended/helper"
 	"github.com/miekg/dns"
 	"github.com/spf13/cobra"
