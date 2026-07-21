@@ -5,7 +5,7 @@ go 1.26
 toolchain go1.26.5
 
 require (
-	github.com/DNSControl/dnscontrol/v4 v4.43.2
+	github.com/DNSControl/dnscontrol/v4 v4.43.3
 	github.com/spf13/cobra v1.10.2
 	gitlab.com/gitlab-org/api/client-go/v2 v2.51.0
 	go.uber.org/zap v1.28.0
