@@ -5,7 +5,7 @@ go 1.26
 toolchain go1.26.5
 
 require (
-	github.com/DNSControl/dnscontrol/v4 v4.44.1
+	github.com/DNSControl/dnscontrol/v4 v4.45.0
 	github.com/spf13/cobra v1.10.2
 	gitlab.com/gitlab-org/api/client-go/v2 v2.55.1
 	go.uber.org/zap v1.28.0
@@ -13,7 +13,7 @@ require (
 )
 
 require (
-	codeberg.org/miekg/dns v0.6.84 // indirect
+	codeberg.org/miekg/dns v0.6.86 // indirect
 	github.com/fatih/color v1.19.0 // indirect
 	github.com/gobwas/glob v0.2.4-0.20181002190808-e7a84e9525fe // indirect
 	github.com/google/go-querystring v1.2.0 // indirect
@@ -21,7 +21,7 @@ require (
 	github.com/hashicorp/go-retryablehttp v0.7.8 // indirect
 	github.com/jinzhu/copier v0.4.0 // indirect
 	github.com/mattn/go-colorable v0.1.15 // indirect
-	github.com/mattn/go-isatty v0.0.23 // indirect
+	github.com/mattn/go-isatty v0.0.24 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/qdm12/reprint v0.0.0-20200326205758-722754a53494 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
