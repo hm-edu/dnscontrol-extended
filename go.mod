@@ -5,7 +5,7 @@ go 1.26
 toolchain go1.26.5
 
 require (
-	github.com/DNSControl/dnscontrol/v4 v4.45.0
+	github.com/DNSControl/dnscontrol/v4 v4.46.0
 	github.com/spf13/cobra v1.10.2
 	gitlab.com/gitlab-org/api/client-go/v2 v2.56.0
 	go.uber.org/zap v1.28.0
@@ -13,7 +13,7 @@ require (
 )
 
 require (
-	codeberg.org/miekg/dns v0.6.86 // indirect
+	codeberg.org/miekg/dns v0.6.90 // indirect
 	github.com/fatih/color v1.19.0 // indirect
 	github.com/gobwas/glob v0.2.4-0.20181002190808-e7a84e9525fe // indirect
 	github.com/google/go-querystring v1.2.0 // indirect
