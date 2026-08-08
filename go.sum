@@ -8,6 +8,8 @@ codeberg.org/miekg/dns v0.6.84 h1:KdGkekztQgb/g+TE2NIj+JM1OrSmhelDzPP5XEPV7eY=
 codeberg.org/miekg/dns v0.6.84/go.mod h1:58Y3ZTg6Z5ZEm/ZAAwHehbZfrD4u5mE4RByHoPEMyKk=
 codeberg.org/miekg/dns v0.6.86 h1:o76hUzpJeaJlLLr4YujzU16zms/6uxHDA2he/iHh4S8=
 codeberg.org/miekg/dns v0.6.86/go.mod h1:58Y3ZTg6Z5ZEm/ZAAwHehbZfrD4u5mE4RByHoPEMyKk=
+codeberg.org/miekg/dns v0.6.90 h1:Trqn1KlkSsjWz3bJ6Q2/bfymmPwdfBZDQm2MCiN3Gog=
+codeberg.org/miekg/dns v0.6.90/go.mod h1:58Y3ZTg6Z5ZEm/ZAAwHehbZfrD4u5mE4RByHoPEMyKk=
 github.com/DNSControl/dnscontrol/v4 v4.38.0 h1:+3xQQsHBqUZHUnzReYN9FUY6GCLg+ESQ4DVC4VilsZw=
 github.com/DNSControl/dnscontrol/v4 v4.38.0/go.mod h1:HrmVCy6i7/F2wPhU9/i5umBN3DAwvL6yR3sL+Idw/Zo=
 github.com/DNSControl/dnscontrol/v4 v4.39.0 h1:b/RnU661C5H6MQVn2AEoFbkXkCaCJDZfTwAY/S2Kk3s=
@@ -26,6 +28,8 @@ github.com/DNSControl/dnscontrol/v4 v4.44.1 h1:5M7gIrmAENETuthmMCkCPebTYGzwkve3N
 github.com/DNSControl/dnscontrol/v4 v4.44.1/go.mod h1:+DyC0nt40S77fgGOPmcJV8cO0vVu+CsBipOZSZRqzaQ=
 github.com/DNSControl/dnscontrol/v4 v4.45.0 h1:p3qdyDxTCd4NOtMarbhCxaOFKFYcEfGOLWESOt695dU=
 github.com/DNSControl/dnscontrol/v4 v4.45.0/go.mod h1:2d5yQMWy9ZBQnZS2NHehcWn0XlOUBJ/Lt3G8d1nhPEY=
+github.com/DNSControl/dnscontrol/v4 v4.46.0 h1:Q2ppJEXhmrMWQJ/QfDmkR8hetdbKwa0lehTXYGjvXUo=
+github.com/DNSControl/dnscontrol/v4 v4.46.0/go.mod h1:Cjfb2SZIslsezGtrqaW02c7VaNW49Y/f8zG6oA3wzc8=
 github.com/cpuguy83/go-md2man/v2 v2.0.6/go.mod h1:oOW0eioCTA6cOiMLiUPZOpcVxMig6NIQQ7OS05n1F4g=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
