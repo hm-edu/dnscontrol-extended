@@ -173,6 +173,8 @@ gitlab.com/gitlab-org/api/client-go/v2 v2.58.2 h1:/4x891eadlccWl4dcf/NIN4g50fTud
 gitlab.com/gitlab-org/api/client-go/v2 v2.58.2/go.mod h1:tuYYHZSRj9eKea28W3uySf9bSqfkE2RknDpBdzxdnhk=
 gitlab.com/gitlab-org/api/client-go/v2 v2.59.0 h1:gjA7XLareccgsf95XRv5pqWw0HZAo3VK84c1z/e2tnc=
 gitlab.com/gitlab-org/api/client-go/v2 v2.59.0/go.mod h1:8MV7TChxjlqD7Yp/XUMCF6Pjwz1JVKfQf6uYG2EW/cQ=
+gitlab.com/gitlab-org/api/client-go/v2 v2.59.1 h1:/AEYi+/ni9MqYRl/Ewx91alc3yTX6zbtH2pYNrE0a0Y=
+gitlab.com/gitlab-org/api/client-go/v2 v2.59.1/go.mod h1:8MV7TChxjlqD7Yp/XUMCF6Pjwz1JVKfQf6uYG2EW/cQ=
 go.uber.org/goleak v1.3.0 h1:2K3zAYmnTNqV73imy9J1T3WC+gmCePx2hEGkimedGto=
 go.uber.org/goleak v1.3.0/go.mod h1:CoHD4mav9JJNrW/WLlf7HGZPjdw8EucARQHekz1X6bE=
 go.uber.org/multierr v1.11.0 h1:blXXJkSxSSfBVBlC76pxqeO+LN3aDfLQo+309xJstO0=
