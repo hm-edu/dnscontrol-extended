@@ -8,9 +8,9 @@ import (
 	"path"
 	"strings"
 
-	"github.com/DNSControl/dnscontrol/v4/pkg/transform"
+	"codeberg.org/miekg/dns"
+	"github.com/DNSControl/dnscontrol/v5/pkg/transform"
 	"github.com/hm-edu/dnscontrol-extended/helper"
-	"github.com/miekg/dns"
 	"github.com/spf13/cobra"
 )
 

@@ -8,7 +8,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/miekg/dns"
+	"codeberg.org/miekg/dns"
 	"github.com/spf13/cobra"
 )
 
@@ -64,12 +64,12 @@ var duplicateCommand = &cobra.Command{
 		duplicates := make(map[string][]string)
 		for i := 0; i < len(records); i++ {
 			// Check if record is a PTR record
-			if records[i].Header().Rrtype != dns.TypePTR {
+			if dns.RRToType(records[i]) != dns.TypePTR {
 				continue
 			}
 			for j := 0; j < len(records); j++ {
 				// Check if record is a PTR record
-				if records[j].Header().Rrtype != dns.TypePTR {
+				if dns.RRToType(records[j]) != dns.TypePTR {
 					continue
 				}
 				// parse to specific type

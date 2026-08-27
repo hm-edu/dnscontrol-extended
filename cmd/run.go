@@ -14,9 +14,9 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/time/rate"
 
-	"github.com/DNSControl/dnscontrol/v4/pkg/transform"
+	"codeberg.org/miekg/dns"
+	"github.com/DNSControl/dnscontrol/v5/pkg/transform"
 	"github.com/hm-edu/dnscontrol-extended/helper"
-	"github.com/miekg/dns"
 	"github.com/spf13/cobra"
 	gitlab "gitlab.com/gitlab-org/api/client-go/v2"
 )
@@ -147,7 +147,7 @@ var runCmd = &cobra.Command{
 			// Create tags if not existing
 			_, _, err := client.Labels.CreateLabel(projectID, &gitlab.CreateLabelOptions{
 				Name:  gitlab.Ptr(item.Label),
-				Color: gitlab.Ptr(fmt.Sprintf("#%06x", item.Color))})
+				Color: gitlab.Ptr(labelColor(item.Color))})
 			if err != nil {
 				logger.Sugar().Warn(err)
 			}
@@ -169,6 +169,18 @@ var runCmd = &cobra.Command{
 		}
 		helper.GenerateGitlabIssue(subnetItems, pat, api, projectID, zone, logger, empty, &inner, project, items, client, labels)
 	},
+}
+
+// labelColor normalizes a label color for the GitLab API, which wants either a
+// CSS color name or 6-digit hex notation with a leading "#". Hex is accepted
+// with or without the "#"; anything else is passed through untouched.
+func labelColor(color string) string {
+	if len(color) == 6 {
+		if _, err := strconv.ParseUint(color, 16, 32); err == nil {
+			return "#" + color
+		}
+	}
+	return color
 }
 
 func computeSubnetContent(net *net.IPNet, logger *zap.Logger, recordMap map[string]string, pseudo bool, c chan helper.SubnetResponse) {
