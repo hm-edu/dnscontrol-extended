@@ -2,24 +2,26 @@ package cmd
 
 import (
 	"bufio"
+	"context"
+	"errors"
 	"fmt"
 	"log"
 	"os"
 
-	"github.com/DNSControl/dnscontrol/v4/pkg/dnsrr"
-	"github.com/DNSControl/dnscontrol/v4/pkg/printer"
-	"github.com/DNSControl/dnscontrol/v4/pkg/zonerecs"
+	"github.com/DNSControl/dnscontrol/v5/pkg/dnsrr"
+	"github.com/DNSControl/dnscontrol/v5/pkg/printer"
+	"github.com/DNSControl/dnscontrol/v5/pkg/zonerecs"
 	"github.com/hm-edu/dnscontrol-extended/helper"
 
-	"net"
+	"net/netip"
 	"regexp"
 	"strings"
 
-	"github.com/DNSControl/dnscontrol/v4/models"
-	"github.com/DNSControl/dnscontrol/v4/pkg/providers"
-	"github.com/DNSControl/dnscontrol/v4/pkg/transform"
-	_ "github.com/DNSControl/dnscontrol/v4/providers/bind"
-	"github.com/miekg/dns"
+	"codeberg.org/miekg/dns"
+	"github.com/DNSControl/dnscontrol/v5/models"
+	"github.com/DNSControl/dnscontrol/v5/pkg/providers"
+	"github.com/DNSControl/dnscontrol/v5/pkg/transform"
+	_ "github.com/DNSControl/dnscontrol/v5/providers/bind"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -61,8 +63,6 @@ var genCmd = &cobra.Command{
 
 		dir, _ := cmd.Flags().GetString("path")
 
-		soa, _ := dns.NewRR(fmt.Sprintf("@ IN SOA %s %s 0 0 0 0 0", ns[0], mbox))
-
 		var cfg = map[string]string{}
 
 		cfg["directory"] = dir
@@ -83,7 +83,7 @@ var genCmd = &cobra.Command{
 		}
 
 		for _, zone := range zones {
-			_, cidr, err := net.ParseCIDR(zone)
+			prefix, err := netip.ParsePrefix(zone)
 			if err != nil {
 				logger.Sugar().Fatalf("error generating reverse zone for %s %v", zone, err)
 			}
@@ -91,32 +91,43 @@ var genCmd = &cobra.Command{
 			if err != nil {
 				logger.Sugar().Fatalf("error generating reverse zone for %s %v", zone, err)
 			}
-			entries := make(map[string]string)
-			ptrRecords := models.Records{}
-
-			rec, err := dnsrr.RRtoRC(soa, name)
+			config, err := models.NewDomainConfig(name)
 			if err != nil {
 				logger.Sugar().Fatalf("error generating reverse zone for %s %v", zone, err)
 			}
-			ptrRecords = append(ptrRecords, &rec)
+			entries := make(map[string]string)
+			ptrRecords := models.Records{}
+
+			soa, err := dns.New(fmt.Sprintf("%s. IN SOA %s %s 0 0 0 0 0", name, ns[0], mbox))
+			if err != nil {
+				logger.Sugar().Fatalf("error generating soa for %s %v", zone, err)
+			}
+			rec, err := dnsrr.RRv2toRC(config, soa)
+			if err != nil {
+				logger.Sugar().Fatalf("error generating reverse zone for %s %v", zone, err)
+			}
+			ptrRecords = append(ptrRecords, rec)
 
 			for _, server := range ns {
 
-				dnsRR, _ := dns.NewRR(fmt.Sprintf("%s IN NS %s", name, server))
+				dnsRR, err := dns.New(fmt.Sprintf("%s. IN NS %s", name, server))
+				if err != nil {
+					logger.Sugar().Fatalf("error generating ns record for %s %v", zone, err)
+				}
 
-				rec, err := dnsrr.RRtoRC(dnsRR, name)
+				rec, err := dnsrr.RRv2toRC(config, dnsRR)
 				if err != nil {
 					logger.Sugar().Fatalf("error generating reverse zone for %s %v", zone, err)
 				}
-				ptrRecords = append(ptrRecords, &rec)
+				ptrRecords = append(ptrRecords, rec)
 			}
 
 			for _, record := range records {
 				if a, ok := record.(*dns.A); ok {
-					if !cidr.Contains(a.A) {
+					if !prefix.Contains(a.Addr) {
 						continue
 					}
-					revName, err := transform.ReverseDomainName(a.A.String())
+					revName, err := transform.ReverseDomainName(a.Addr.String())
 					if err != nil {
 						logger.Sugar().Fatalf("error adding ptr %v", err)
 					}
@@ -134,7 +145,8 @@ var genCmd = &cobra.Command{
 							matches := patternTxt.FindStringSubmatch(txt.String())
 							ip := matches[1]
 							ip = strings.TrimSpace(strings.Trim(ip, "\""))
-							if !cidr.Contains(net.ParseIP(ip)) {
+							addr, err := netip.ParseAddr(ip)
+							if err != nil || !prefix.Contains(addr) {
 								continue
 							}
 							revName, err := transform.ReverseDomainName(ip)
@@ -156,29 +168,24 @@ var genCmd = &cobra.Command{
 			}
 
 			for key, value := range entries {
-				rr, err := dns.NewRR(fmt.Sprintf("%s IN PTR %s", key, strings.ToLower(value)))
+				rr, err := dns.New(fmt.Sprintf("%s. IN PTR %s", key, strings.ToLower(value)))
 				if err != nil {
 					log.Fatalf("error adding ptr %v", err)
 				}
-				rec, err := dnsrr.RRtoRC(rr, name)
+				rec, err := dnsrr.RRv2toRC(config, rr)
 				if err != nil {
 					log.Fatalf("error adding ptr %v", err)
 				}
-				ptrRecords = append(ptrRecords, &rec)
+				ptrRecords = append(ptrRecords, rec)
 			}
 
 			var nameservers []*models.Nameserver
 			for _, server := range ns {
 				nameservers = append(nameservers, &models.Nameserver{Name: server})
 			}
-			config := models.DomainConfig{
-				Name:        name,
-				Records:     ptrRecords,
-				Nameservers: nameservers,
-				Metadata:    make(map[string]string),
-			}
-			config.Metadata[models.DomainUniqueName] = name
-			_, corrections, _, err := zonerecs.CorrectZoneRecords(provider, &config)
+			config.Records = ptrRecords
+			config.Nameservers = nameservers
+			_, corrections, _, err := zonerecs.CorrectZoneRecords(provider, config)
 			if err != nil {
 				logger.Sugar().Fatalf("error computing domain corrections %v", err)
 			}
@@ -202,19 +209,11 @@ var genCmd = &cobra.Command{
 	}}
 
 func getRecords(zone string) ([]dns.RR, error) {
-	var con net.Conn = nil
-	var err error = nil
-	server := "127.0.0.1:53"
-	con, err = net.Dial("tcp", server)
+	const server = "127.0.0.1:53"
 
-	if err != nil {
-		return nil, err
-	}
-	dnsConnection := &dns.Conn{Conn: con}
-	transfer := &dns.Transfer{Conn: dnsConnection}
-	request := new(dns.Msg)
-	request.SetAxfr(zone + ".")
-	envelope, err := transfer.In(request, server)
+	client := dns.NewClient()
+	request := dns.NewMsg(zone+".", dns.TypeAXFR)
+	envelope, err := client.TransferIn(context.Background(), request, "tcp", server)
 	if err != nil {
 		return nil, err
 	}
@@ -223,13 +222,13 @@ func getRecords(zone string) ([]dns.RR, error) {
 	for msg := range envelope {
 		if msg.Error != nil {
 			// Fragile but more "user-friendly" error-handling
-			err := msg.Error.Error()
-			if err == "dns: bad xfr rcode: 9" {
-				err = "NOT AUTH (9)"
+			reason := msg.Error.Error()
+			if errors.Is(msg.Error, dns.ErrRcode) && strings.HasSuffix(reason, dns.RcodeToString[dns.RcodeNotAuth]) {
+				reason = "NOT AUTH (9)"
 			}
-			return nil, fmt.Errorf("[Error] AXFRDDNS: nameserver refused to transfer the zone: %s", err)
+			return nil, fmt.Errorf("[Error] AXFRDDNS: nameserver refused to transfer the zone: %s", reason)
 		}
-		rawRecords = append(rawRecords, msg.RR...)
+		rawRecords = append(rawRecords, msg.Answer...)
 	}
 	return rawRecords, nil
 }
