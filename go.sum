@@ -28,6 +28,8 @@ github.com/DNSControl/dnscontrol/v5 v5.1.0 h1:s8IUPW3JgSOws0eNC0JdIREP3RMLnr8BT9
 github.com/DNSControl/dnscontrol/v5 v5.1.0/go.mod h1:sTGxvzYnA/26bJ9q0vlniuY5/VYzBQ8jsc12rYBgZjk=
 github.com/DNSControl/dnscontrol/v5 v5.2.0 h1:alGbS45Z0ASfVvh8AFj1FXuoNTezK+wxtdcRFv/Okso=
 github.com/DNSControl/dnscontrol/v5 v5.2.0/go.mod h1:YbKnFoZe1VRu04pfiMR3di5Gjwkdm58I0Tewt9YQTQg=
+github.com/DNSControl/dnscontrol/v5 v5.3.0 h1:UVoclJ5XOJhRz90UFwFhSZIybCrfiim2YO4tqFVcYgE=
+github.com/DNSControl/dnscontrol/v5 v5.3.0/go.mod h1:FO3h3wM+OUR3t1JFLl7Isuqopp4Bbzx6428kEJRus1E=
 github.com/cpuguy83/go-md2man/v2 v2.0.6/go.mod h1:oOW0eioCTA6cOiMLiUPZOpcVxMig6NIQQ7OS05n1F4g=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
