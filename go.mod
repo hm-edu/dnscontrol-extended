@@ -4,7 +4,7 @@ go 1.27.0
 
 require (
 	codeberg.org/miekg/dns v0.6.115
-	github.com/DNSControl/dnscontrol/v5 v5.3.0
+	github.com/DNSControl/dnscontrol/v5 v5.3.1
 	github.com/spf13/cobra v1.10.2
 	gitlab.com/gitlab-org/api/client-go/v2 v2.64.0
 	go.uber.org/zap v1.28.0
@@ -18,7 +18,7 @@ require (
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.8 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
-	github.com/mattn/go-colorable v0.1.15 // indirect
+	github.com/mattn/go-colorable v0.1.16 // indirect
 	github.com/mattn/go-isatty v0.0.24 // indirect
 	github.com/qdm12/reprint v0.0.0-20200326205758-722754a53494 // indirect
 	github.com/spf13/pflag v1.0.10 // indirect
