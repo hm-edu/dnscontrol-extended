@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	gitlab "gitlab.com/gitlab-org/api/client-go/v2"
+	gitlab "gitlab.com/gitlab-org/api/client-go/v3"
 	"go.uber.org/zap"
 )
 
