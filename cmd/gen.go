@@ -13,9 +13,11 @@ import (
 	"github.com/DNSControl/dnscontrol/v5/pkg/zonerecs"
 	"github.com/hm-edu/dnscontrol-extended/helper"
 
+	"net"
 	"net/netip"
 	"regexp"
 	"strings"
+	"time"
 
 	"codeberg.org/miekg/dns"
 	"github.com/DNSControl/dnscontrol/v5/models"
@@ -75,7 +77,7 @@ var genCmd = &cobra.Command{
 		var records []dns.RR
 		for _, domain := range domains {
 			logger.Sugar().Infof("getting records in domain %s", domain)
-			entries, err := getRecords(domain)
+			entries, err := getRecords(axfrServer, domain)
 			if err != nil {
 				logger.Sugar().Fatalf("error querying domain %s %v", domain, err)
 			}
@@ -208,27 +210,63 @@ var genCmd = &cobra.Command{
 
 	}}
 
-func getRecords(zone string) ([]dns.RR, error) {
-	const server = "127.0.0.1:53"
+// axfrServer is the nameserver the forward zones are transferred from.
+const axfrServer = "127.0.0.1:53"
+
+// axfrTimeout bounds the dial and every single read of a zone transfer.
+const axfrTimeout = 30 * time.Second
+
+func getRecords(server, zone string) ([]dns.RR, error) {
+	con, err := net.DialTimeout("tcp", server, axfrTimeout)
+	if err != nil {
+		return nil, err
+	}
+	// The library closes the connection once the transfer goroutine ends; the
+	// deferred close only covers the early returns below and is otherwise a no-op.
+	defer con.Close()
 
 	client := dns.NewClient()
+	client.ReadTimeout = axfrTimeout
+
 	request := dns.NewMsg(zone+".", dns.TypeAXFR)
-	envelope, err := client.TransferIn(context.Background(), request, "tcp", server)
+	request.RecursionDesired = false
+
+	envelope, err := client.TransferInWithConn(context.Background(), request, con, nil)
 	if err != nil {
 		return nil, err
 	}
 
+	// RFC 5936 section 2.2: a complete AXFR answer ends with the SOA it began
+	// with. The library only checks for that closing SOA from the second message
+	// on, so a zone delivered in a single message would block until the read
+	// timeout expires. Close the connection ourselves as soon as the closing SOA
+	// is seen and drain whatever is left on the channel.
 	var rawRecords []dns.RR
+	var complete bool
 	for msg := range envelope {
+		if complete {
+			continue
+		}
 		if msg.Error != nil {
 			// Fragile but more "user-friendly" error-handling
 			reason := msg.Error.Error()
 			if errors.Is(msg.Error, dns.ErrRcode) && strings.HasSuffix(reason, dns.RcodeToString[dns.RcodeNotAuth]) {
 				reason = "NOT AUTH (9)"
 			}
-			return nil, fmt.Errorf("[Error] AXFRDDNS: nameserver refused to transfer the zone: %s", reason)
+			return nil, fmt.Errorf("[Error] AXFRDDNS: nameserver refused to transfer the zone %s: %s", zone, reason)
 		}
 		rawRecords = append(rawRecords, msg.Answer...)
+		if len(rawRecords) >= 2 {
+			if _, ok := rawRecords[len(rawRecords)-1].(*dns.SOA); ok {
+				complete = true
+				if err := con.Close(); err != nil {
+					return nil, fmt.Errorf("[Error] AXFRDDNS: failed to close connection after complete transfer of the zone %s: %w", zone, err)
+				}
+			}
+		}
+	}
+	if !complete {
+		return nil, fmt.Errorf("[Error] AXFRDDNS: incomplete transfer of the zone %s: the answer does not end with the SOA record", zone)
 	}
 	return rawRecords, nil
 }
