@@ -3,7 +3,7 @@ module github.com/hm-edu/dnscontrol-extended
 go 1.27.3
 
 require (
-	codeberg.org/miekg/dns v0.6.118
+	codeberg.org/miekg/dns v0.6.119
 	github.com/DNSControl/dnscontrol/v5 v5.6.0
 	github.com/spf13/cobra v1.10.2
 	gitlab.com/gitlab-org/api/client-go/v3 v3.30.0
