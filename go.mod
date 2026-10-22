@@ -4,7 +4,7 @@ go 1.27.3
 
 require (
 	codeberg.org/miekg/dns v0.6.119
-	github.com/DNSControl/dnscontrol/v5 v5.6.0
+	github.com/DNSControl/dnscontrol/v5 v5.7.0
 	github.com/spf13/cobra v1.10.2
 	gitlab.com/gitlab-org/api/client-go/v3 v3.30.1
 	go.uber.org/zap v1.28.0
