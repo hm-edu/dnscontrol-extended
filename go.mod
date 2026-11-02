@@ -6,7 +6,7 @@ require (
 	codeberg.org/miekg/dns v0.6.128
 	github.com/DNSControl/dnscontrol/v5 v5.7.2
 	github.com/spf13/cobra v1.10.2
-	gitlab.com/gitlab-org/api/client-go/v3 v3.40.0
+	gitlab.com/gitlab-org/api/client-go/v3 v3.40.2
 	go.uber.org/zap v1.28.0
 	golang.org/x/time v0.16.0
 )
