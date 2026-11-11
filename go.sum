@@ -18,8 +18,8 @@ github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/privatedns/armprivatedns/v
 github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/privatedns/armprivatedns/v2 v2.0.0/go.mod h1:bM1rJt5FapRKM0cO01k9nMNJJWvYDh7NSMRYLOzlhPo=
 github.com/AzureAD/microsoft-authentication-library-for-go v1.10.1 h1:0O6j18nQDoIff6/mtosT5LNU2WehEwp+LqfX6699oqY=
 github.com/AzureAD/microsoft-authentication-library-for-go v1.10.1/go.mod h1:xdYAf5bjkOpsd3auA8riiJW4vneBubt9caavL7626jQ=
-github.com/DNSControl/dnscontrol/v5 v5.8.0 h1:n3aF6Nlly2oxLuQ4eYuHrpVykHhtIDZhrgzGbuMnWi8=
-github.com/DNSControl/dnscontrol/v5 v5.8.0/go.mod h1:Fn3jMvKez4iQGkTF37HSxg3FkvMVN30vX/KdsageA5w=
+github.com/DNSControl/dnscontrol/v5 v5.8.1 h1:1hiSRe03fIzKM9jlz7MSIF7Ih+Z7n7+hnVYYoXQREK8=
+github.com/DNSControl/dnscontrol/v5 v5.8.1/go.mod h1:Fn3jMvKez4iQGkTF37HSxg3FkvMVN30vX/KdsageA5w=
 github.com/G-Core/gcore-dns-sdk-go v0.3.3 h1:McILJSbJ5nOcT0MI0aBYhEuufCF329YbqKwFIN0RjCI=
 github.com/G-Core/gcore-dns-sdk-go v0.3.3/go.mod h1:35t795gOfzfVanhzkFyUXEzaBuMXwETmJldPpP28MN4=
 github.com/PuerkitoBio/goquery v1.13.0 h1:mqHbjD7Jmnul4DTR24LKTjo1uUmHUh072kteGV+xpFM=
