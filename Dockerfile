@@ -6,5 +6,5 @@ COPY . ./
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o dnscontrol-extended
 
-FROM ghcr.io/dnscontrol/dnscontrol:5.9.0@sha256:403c5a7fd359f3ed11e07ea3117a01855985d4f2f657ed2f8b855f08a2bd4e15
+FROM ghcr.io/dnscontrol/dnscontrol:5.10.0@sha256:6f97b376a4e4a9312bd43183103a98d9b49f283735fa91179ba67cfafba4150c
 COPY --from=0 /app/dnscontrol-extended /usr/local/bin/dnscontrol-extended
