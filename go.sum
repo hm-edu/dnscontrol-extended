@@ -4,8 +4,8 @@ cloud.google.com/go/auth/oauth2adapt v0.3.1 h1:BKLDdbWS7pafd820dsyFDF6fPEzIGqr7n
 cloud.google.com/go/auth/oauth2adapt v0.3.1/go.mod h1:B1nM4FJDxoDqAt3PXFG4IflUoQ5kvWAOOM3R+5wAszg=
 cloud.google.com/go/compute/metadata v0.10.0 h1:pyKMUQSwchgkIBBJGdILqQbs/BNJXqwSA7Ej6LAvvtY=
 cloud.google.com/go/compute/metadata v0.10.0/go.mod h1:rGFHRrIif570kSibjFTMbt6/4/tzgJWFGI/HVol4GIk=
-codeberg.org/miekg/dns v0.6.145 h1:3BS6RIkIpcZiBtfoEuNPfEHxP1Yg4GzFRcNyeKm5RbA=
-codeberg.org/miekg/dns v0.6.145/go.mod h1:GZQYwBsgLFxE+NImBtNZH/eph/CHD8oHuFVGOLHuaos=
+codeberg.org/miekg/dns v0.6.147 h1:VIlntAY574SAVvrYA1MiQSAnbNNGc2d9uL1uC3fOuD4=
+codeberg.org/miekg/dns v0.6.147/go.mod h1:GZQYwBsgLFxE+NImBtNZH/eph/CHD8oHuFVGOLHuaos=
 github.com/Azure/azure-sdk-for-go/sdk/azcore v1.24.0 h1:5H6YRLGMoC8z5aXpxqcD6FfswI8mwoVNHSecvIoazt4=
 github.com/Azure/azure-sdk-for-go/sdk/azcore v1.24.0/go.mod h1:Sk63W6X/TElfcE2BknMYg0Q9JuCpebgjnHcbs5md4NM=
 github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.15.0 h1:w3gDUJlJ0BfBsHH02DCBDwbkmMSXJqBj6nBOCo9iocY=
